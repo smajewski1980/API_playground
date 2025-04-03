@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Page</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <h1>Create User Form</h1>
+      <form>
+        <label for="name">name</label>
+        <input type="text" name="name" id="name" />
+        <label for="password">password</label>
+        <input type="text" name="password" id="password" />
+        <label for="email">email</label>
+        <input type="email" name="email" id="email" />
+        <label for="address-line-1">address line 1</label>
+        <input type="text" name="address_line_1" id="address-line-1" />
+        <label for="address-line-2">address line 2</label>
+        <input type="text" name="address_line_2" id="address-line-2" />
+        <label for="phone">phone</label>
+        <input type="tel" name="phone" id="phone" />
+        <p>Would you like email crap and useless shit cluttering your inbox?</p>
+        <label for="email-yes">yes</label>
+        <input
+          type="radio"
+          name="prefers_email_notifications"
+          id="email-yes"
+          value="yes"
+        />
+        <label for="email-no">no</label>
+        <input
+          type="radio"
+          name="prefers_email_notifications"
+          id="email-no"
+          value="no"
+        />
+        <p>Would you like crap sent to your phone?</p>
+        <label for="phone-yes">yes</label>
+        <input
+          type="radio"
+          name="prefers_phone_notifications"
+          id="phone-yes"
+          value="yes"
+        />
+        <label for="phone-no">no</label>
+        <input
+          type="radio"
+          name="prefers_phone_notifications"
+          id="phone-no"
+          value="no"
+        />
+        <br />
+        <button>create user</button>
+      </form>
+    </main>
+  </body>
+</html>
