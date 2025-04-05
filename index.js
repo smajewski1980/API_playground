@@ -28,8 +28,28 @@ app.post("/user", (req, res) => {
       return;
     }
   }
-  console.log(body);
-  res.status(201).send();
+  pool.query(
+    "insert into users(name, password, email, address_line_1, address_line_2, phone, prefers_email_notifications, prefers_phone_notifications)values ($1, $2, $3, $4, $5, $6, $7, $8) returning *",
+    [
+      body.name,
+      body.password,
+      body.email,
+      body.address_line_1,
+      body.address_line_2,
+      body.phone,
+      body.prefers_email_notifications,
+      body.prefers_phone_notifications,
+    ],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+      } else {
+        res.status(201).send(result.rows);
+      }
+    }
+  );
+  // console.log(body);
+  // res.status(201).send();
 });
 
 const PORT = process.env.PORT || 5500;
