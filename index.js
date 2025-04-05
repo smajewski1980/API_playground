@@ -20,6 +20,13 @@ pool
 app.use(express.static("public"));
 app.use(express.json());
 
+app.post("/user/:name", (req, res) => {
+  const name = req.params.name;
+  const pw = req.body.pw;
+  console.log(name + " " + pw);
+  res.send(`name: ${name}, password: ${pw}`);
+});
+
 app.post("/user", (req, res) => {
   const body = req.body;
   for (const val in body) {
