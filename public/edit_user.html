@@ -5,17 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="edit_user.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <p><a href="/">Back to home</a></p>
-    <h1>Edit User Info</h1>
-    <form>
-      <label for="name">Username</label>
-      <input type="text" name="name" id="name" />
-      <label for="password">Password</label>
-      <input type="text" name="password" id="password" />
-      <button>Log In</button>
-    </form>
-    <p id="login-message"></p>
+    <main>
+      <p><a href="/">Back to home</a></p>
+      <h1>Edit User Info</h1>
+      <form>
+        <label for="name">Username</label>
+        <input type="text" name="name" id="name" autocomplete="off" />
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" />
+        <button>Log In</button>
+      </form>
+      <p id="login-message"></p>
+    </main>
   </body>
 </html>

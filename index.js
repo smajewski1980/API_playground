@@ -23,8 +23,35 @@ app.use(express.json());
 app.post("/user/:name", (req, res) => {
   const name = req.params.name;
   const pw = req.body.pw;
+  pool.query(
+    "select password from users where name = $1",
+    [name],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(400).send("passaword no good");
+      } else {
+        const verify = result.rows;
+        if (verify[0].password !== pw) {
+          console.error("passaword no good");
+        } else {
+          pool.query(
+            "select * from users where name = $1 and password = $2",
+            [name, pw],
+            (err, result) => {
+              if (err) {
+                console.error(err);
+              } else {
+                res.send(result.rows);
+              }
+            }
+          );
+        }
+      }
+    }
+  );
   console.log(name + " " + pw);
-  res.send(`name: ${name}, password: ${pw}`);
+  // res.send(`name: ${name}, password: ${pw}`);
 });
 
 app.post("/user", (req, res) => {
