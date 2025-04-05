@@ -50,8 +50,6 @@ app.post("/user/:name", (req, res) => {
       }
     }
   );
-  console.log(name + " " + pw);
-  // res.send(`name: ${name}, password: ${pw}`);
 });
 
 app.post("/user", (req, res) => {
@@ -82,8 +80,38 @@ app.post("/user", (req, res) => {
       }
     }
   );
-  // console.log(body);
-  // res.status(201).send();
+});
+
+app.put("/user", (req, res) => {
+  const body = req.body;
+  console.log(body);
+  for (const val in body) {
+    if (!body[val]) {
+      res.status(400).send();
+      return;
+    }
+  }
+  pool.query(
+    "update users set name = $1, password = $2, email = $3, address_line_1 = $4, address_line_2 = $5, phone = $6, prefers_email_notifications = $7, prefers_phone_notifications = $8 where id = $9",
+    [
+      body.name,
+      body.password,
+      body.email,
+      body.address_line_1,
+      body.address_line_2,
+      body.phone,
+      body.prefers_email_notifications,
+      body.prefers_phone_notifications,
+      body.id,
+    ],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+      } else {
+        res.status(201).send(result.rows);
+      }
+    }
+  );
 });
 
 const PORT = process.env.PORT || 5500;

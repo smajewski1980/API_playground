@@ -11,7 +11,7 @@
     <main>
       <p><a href="/">Back to home</a></p>
       <h1>Edit User Info</h1>
-      <form>
+      <form id="login-form">
         <label for="name">Username</label>
         <input type="text" name="name" id="name" autocomplete="off" />
         <label for="password">Password</label>
@@ -19,6 +19,63 @@
         <button>Log In</button>
       </form>
       <p id="login-message"></p>
+
+      <form id="edit-user-form">
+        <label for="edit-name">name</label>
+        <input type="text" name="name" id="edit-name" autocomplete="off" />
+        <label for="edit-password">password</label>
+        <input type="password" name="password" id="edit-password" />
+        <label for="edit-email">email</label>
+        <input type="email" name="email" id="edit-email" autocomplete="off" />
+        <label for="edit-address-line-1">address line 1</label>
+        <input
+          type="text"
+          name="address_line_1"
+          id="edit-address-line-1"
+          autocomplete="off"
+        />
+        <label for="edit-address-line-2">address line 2</label>
+        <input
+          type="text"
+          name="address_line_2"
+          id="edit-address-line-2"
+          autocomplete="off"
+        />
+        <label for="edit-phone">phone</label>
+        <input type="tel" name="phone" id="edit-phone" autocomplete="off" />
+        <p>Would you like email crap and useless shit cluttering your inbox?</p>
+        <label for="edit-email-yes">yes</label>
+        <input
+          type="radio"
+          name="prefers_email_notifications"
+          id="edit-email-yes"
+          value="yes"
+        />
+        <label for="edit-email-no">no</label>
+        <input
+          type="radio"
+          name="prefers_email_notifications"
+          id="edit-email-no"
+          value="no"
+        />
+        <p>Would you like crap sent to your phone?</p>
+        <label for="edit-phone-yes">yes</label>
+        <input
+          type="radio"
+          name="prefers_phone_notifications"
+          id="edit-phone-yes"
+          value="yes"
+        />
+        <label for="phone-no">no</label>
+        <input
+          type="radio"
+          name="prefers_phone_notifications"
+          id="edit-phone-no"
+          value="no"
+        />
+        <br />
+        <button id="btn-update-user">update user</button>
+      </form>
     </main>
   </body>
 </html>
