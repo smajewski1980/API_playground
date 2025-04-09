@@ -19,6 +19,10 @@ input[type="email"] {
   margin-block: 0.25rem 0.5rem;
 }
 
+nav {
+  margin-bottom: 2rem;
+}
+
 main {
   width: 500px;
   text-align: center;
@@ -29,6 +33,10 @@ form {
   padding-block: 1rem 1.5rem;
 }
 
+#create-user-form {
+  display: none;
+}
+
 button {
   font: inherit;
   margin-top: 1rem;
@@ -37,6 +45,17 @@ button {
   border-radius: 15px;
   cursor: pointer;
   border: none;
+  outline: 1px solid black;
+}
+
+a {
+  text-decoration: none;
+  color: currentColor;
+  margin-top: 1rem;
+  padding-block: 0.5rem 0.75rem;
+  padding-inline: 2rem;
+  border-radius: 15px;
+  cursor: pointer;
   outline: 1px solid black;
 }
 

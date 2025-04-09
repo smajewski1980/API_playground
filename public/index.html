@@ -9,12 +9,13 @@
   </head>
   <body>
     <main>
-      <p>
-        <a href="/edit_user.html">Edit User</a>&nbsp;&nbsp;
+      <nav>
+        <a href="/edit_user.html">Edit User</a>
         <a href="/products.html">Products</a>
-      </p>
-      <h1>Create User Form</h1>
-      <form>
+        <button class="btn-create-user">create user</button>
+      </nav>
+      <form id="create-user-form">
+        <h1>Create User Form</h1>
         <label for="name">name</label>
         <input type="text" name="name" id="name" autocomplete="off" />
         <label for="password">password</label>
@@ -68,8 +69,10 @@
           value="no"
         />
         <br />
-        <button>create user</button>
+        <button id="submit">create user</button>
+        <button id="btn-create-cancel">cancel</button>
       </form>
+      <div class="home-message"></div>
     </main>
   </body>
 </html>

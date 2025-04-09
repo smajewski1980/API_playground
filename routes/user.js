@@ -17,18 +17,18 @@ pool
     console.error(err.message);
   });
 
-router.get("/", (req, res) => {
-  pool.query("select * from users order by id desc", (err, result) => {
-    if (err) {
-      console.error(err);
-      return;
-    } else {
-      console.log(req.session);
-      console.log(req.sessionID);
-      res.send(result.rows);
-    }
-  });
-});
+// router.get("/", (req, res) => {
+//   pool.query("select * from users order by id desc", (err, result) => {
+//     if (err) {
+//       console.error(err);
+//       return;
+//     } else {
+//       console.log(req.session);
+//       console.log(req.sessionID);
+//       res.send(result.rows);
+//     }
+//   });
+// });
 
 router.post("/:name", (req, res) => {
   const name = req.params.name;
