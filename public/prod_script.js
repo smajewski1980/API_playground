@@ -17,16 +17,23 @@ products();
 
 function showProducts() {
   productItems.forEach((item) => {
-    console.log(item);
     productsWrapper.innerHTML += `
-    <div class="product-card">
-      <p>Product_id: ${item.product_id}</p>
-      <p>&nbsp;&nbsp;name: ${item.name}</p>
-      <p>&nbsp;&nbsp;price: ${item.price}</p>
-      <p>&nbsp;&nbsp;quantity: ${item.quantity}</p>
+    <div data-prod-id=${item.product_id} class="product-card">
       <img src=${item.img_url} alt=${item.name} />
+      <div class="card-text-wrapper">
+        <p>&nbsp;&nbsp;name: ${item.name}</p>
+        <p>&nbsp;&nbsp;price: ${item.price}</p>
+        <p>&nbsp;&nbsp;quantity: ${item.quantity}</p>
+      </div>
+      <button class='btn-add-to-cart'>add to cart</button>
     </div>
     `;
   });
 }
-console.log(productItems);
+
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("btn-add-to-cart")) {
+    console.log(e.target.parentElement.dataset.prodId);
+    console.log("you clicked one of the add btns");
+  }
+});

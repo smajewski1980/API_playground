@@ -3,6 +3,7 @@ body {
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   display: grid;
   place-content: center;
+  text-align: center;
 }
 
 input:not(input[type="radio"]) {
@@ -46,13 +47,17 @@ button {
 .products-wrapper {
   display: flex;
   flex-wrap: wrap;
+  width: 75vw;
+  justify-content: space-around;
+  row-gap: 1rem;
 }
 
 .product-card {
-  flex-basis: 200px;
+  flex-basis: 350px;
   padding: 1rem;
+  outline: 1px solid black;
 }
 
 img {
-  width: 100px;
+  width: 150px;
 }

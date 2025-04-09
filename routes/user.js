@@ -23,6 +23,8 @@ router.get("/", (req, res) => {
       console.error(err);
       return;
     } else {
+      console.log(req.session);
+      console.log(req.sessionID);
       res.send(result.rows);
     }
   });
@@ -40,8 +42,13 @@ router.post("/:name", (req, res) => {
         res.status(400).send("passaword no good");
       } else {
         const verify = result.rows;
+        if (!verify[0]) {
+          res.status(401).send({ message: "something went wrong!" });
+          return;
+        }
         if (verify[0].password !== pw) {
-          console.error("passaword no good");
+          console.log("passaword no good");
+          res.status(401).send({ message: "wrong password fool!" });
         } else {
           pool.query(
             "select * from users where name = $1 and password = $2",

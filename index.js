@@ -2,11 +2,47 @@ const express = require("express");
 const app = express();
 const user = require("./routes/user");
 const product = require("./routes/product");
+const session = require("express-session");
 
 app.use(express.static("public"));
 app.use(express.json());
+app.use(
+  session({
+    secret: "isYouCrazy!!",
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+      maxAge: 5e6,
+    },
+  })
+);
 app.use("/user", user);
 app.use("/product", product);
+
+app.post("/login", async (req, res) => {
+  const { body } = req;
+  const { username, password } = body;
+  const getUserResponse = await fetch(`http:localhost:5500/user/${username}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username: username, pw: password }),
+  });
+  const user = await getUserResponse.json();
+  if (!user[0]) {
+    res.status(401).send("bad request!");
+    return;
+  } else if (user[0].password === password) {
+    console.log("login successful!");
+    console.log(req.session);
+    req.session.visited = true;
+    res.status(200).send(user);
+    return;
+  } else {
+    res.status(401).send({ message: "something else went wrong" });
+  }
+});
 
 const PORT = process.env.PORT || 5500;
 app.listen(PORT, () => {

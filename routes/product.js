@@ -18,16 +18,16 @@ pool
   });
 
 router.get("/", (req, res) => {
-  pool.query(
-    "select * from products order by product_id desc",
-    (err, result) => {
-      if (err) {
-        console.error(err);
-      } else {
-        res.send(result.rows);
-      }
+  pool.query("select * from products order by name", (err, result) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log(req.session);
+      console.log(req.sessionID);
+      req.session.visited = true;
+      res.send(result.rows);
     }
-  );
+  });
 });
 
 router.post("/", (req, res) => {
