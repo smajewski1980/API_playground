@@ -35,13 +35,23 @@ app.post("/login", async (req, res) => {
     return;
   } else if (user[0].password === password) {
     console.log("login successful!");
-    console.log(req.session);
+    // console.log(req.session);
     req.session.visited = true;
+    req.session.user = user;
     res.status(200).send(user);
     return;
   } else {
     res.status(401).send({ message: "something else went wrong" });
   }
+});
+
+app.get("/login/status", (req, res) => {
+  req.sessionStore.get(req.sessionID, (err, session) => {
+    console.log("data is moving around...");
+  });
+  return req.session.user
+    ? res.status(200).send(req.session.user[0].name + " is logged in")
+    : res.status(401).send({ msg: "not authenticated" });
 });
 
 const PORT = process.env.PORT || 5500;
