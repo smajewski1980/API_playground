@@ -17,20 +17,18 @@ pool
     console.error(err.message);
   });
 
-router.get("/", (req, res) => {
+router.get("/", (req, res, next) => {
   pool.query("select * from products order by name", (err, result) => {
     if (err) {
-      console.error(err);
+      next(err);
     } else {
-      // console.log(req.session);
-      // console.log(req.sessionID);
-      req.session.visited = true;
+      // req.session.visited = true;
       res.send(result.rows);
     }
   });
 });
 
-router.post("/", (req, res) => {
+router.post("/", (req, res, next) => {
   const body = req.body;
   for (const val in body) {
     if (!body[val]) {
@@ -43,7 +41,8 @@ router.post("/", (req, res) => {
     [body.name, body.price, body.quantity, body.img_url],
     (err, result) => {
       if (err) {
-        console.error(err);
+        // this was changed since last test insert
+        next(err);
       } else res.status(201).send(result.rows);
     }
   );

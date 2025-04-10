@@ -100,6 +100,10 @@ function handleLoginForm(e) {
         loginUserVal.value = "";
         loginPassVal.value = "";
       }
+    })
+    .catch((err) => {
+      console.log(err);
+      // res.status(err.statusCode).json(err);
     });
 }
 

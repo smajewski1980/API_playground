@@ -33,12 +33,9 @@ const isLoggedIn = () => {
     } else {
       messageElem.innerText = "go log in first";
     }
-
-    // console.log(generateUserEdit(userInfo));
-    // if (isLoggedIn) {
-    // }
   });
 };
+
 isLoggedIn();
 
 function generateUserEdit(user) {
@@ -53,10 +50,7 @@ function generateUserEdit(user) {
     prefers_email_notifications,
     prefers_phone_notifications,
   } = user;
-  // messageElem.innerHTML = "login successful";
-  // setTimeout(() => {
-  // messageElem.innerHTML = "";
-  // loginForm.style.display = "none";
+
   editId = id;
   editName.value = name;
   editPassword.value = password;
@@ -71,29 +65,7 @@ function generateUserEdit(user) {
     ? (editPhoneYes.checked = true)
     : (editPhoneNo.checked = true);
   editUserForm.style.display = "block";
-  // }, 3000);
-
-  // make put req from button
 }
-
-// function handleLoginSubmit(e) {
-//   e.preventDefault();
-//   const name = nameInput.value;
-//   const pw = pwInput.value;
-//   const body = { pw: pw };
-//   const options = {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(body),
-//   };
-//   fetch(`/user/${name}`, options).then(async (res) => {
-//     const response = await res.json();
-//     const user = response[0];
-//     generateUserEdit(user);
-//   });
-// }
 
 function handleUpdateUser(e) {
   e.preventDefault();
@@ -115,5 +87,4 @@ function handleUpdateUser(e) {
   editId = null;
 }
 
-// btnSubmit.addEventListener("click", handleLoginSubmit);
 btnUpdateUser.addEventListener("click", handleUpdateUser);

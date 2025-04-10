@@ -36,7 +36,7 @@ function showProducts() {
       <img src=${item.img_url} alt=${item.name} />
       <div class="card-text-wrapper">
         <p>&nbsp;&nbsp;name: ${item.name}</p>
-        <p>&nbsp;&nbsp;price: ${item.price}</p>
+        <p>&nbsp;&nbsp;price: $${item.price}</p>
         <p>&nbsp;&nbsp;quantity: ${item.quantity}</p>
       </div>
       <button class='btn-add-to-cart'>add to cart</button>

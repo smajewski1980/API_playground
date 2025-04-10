@@ -4,6 +4,7 @@ body {
   display: grid;
   place-content: center;
   text-align: center;
+  justify-items: center;
 }
 
 input:not(input[type="radio"]) {
@@ -21,6 +22,11 @@ input[type="email"] {
 
 nav {
   margin-bottom: 2rem;
+}
+
+#products-page-nav,
+#add-product-nav {
+  margin-top: 2rem;
 }
 
 main {
