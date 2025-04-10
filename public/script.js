@@ -58,6 +58,7 @@ function processResponse(data) {
 function handleCreateUser() {
   form.style.display = "block";
   loginForm.style.display = "none";
+  btnCreateCancel.addEventListener("click", handleCreateCancel);
 }
 
 function handleCreateCancel() {
@@ -101,4 +102,3 @@ btnLogout.addEventListener("click", handleLogout);
 btnSubmit.addEventListener("click", handleSubmit);
 btnLoginForm.addEventListener("click", handleLoginForm);
 btnCreateUser.addEventListener("click", handleCreateUser);
-btnCreateCancel.addEventListener("click", handleCreateCancel);
