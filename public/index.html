@@ -14,6 +14,13 @@
         <a href="/products.html">Products</a>
         <button class="btn-create-user">create user</button>
       </nav>
+      <form id="login-form">
+        <label for="name">Username</label>
+        <input type="text" name="name" id="name" autocomplete="off" />
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" />
+        <button class="btn-login-form">Log In</button>
+      </form>
       <form id="create-user-form">
         <h1>Create User Form</h1>
         <label for="name">name</label>
@@ -73,6 +80,8 @@
         <button id="btn-create-cancel">cancel</button>
       </form>
       <div class="home-message"></div>
+      <div class="login-bug"><span>No one</span> is logged in.</div>
+      <button type="button" id="btn-logout">log out</button>
     </main>
   </body>
 </html>

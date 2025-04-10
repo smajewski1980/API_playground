@@ -1,6 +1,20 @@
 const productsWrapper = document.querySelector(".products-wrapper");
 let productItems = [];
 
+const loginSpan = document.querySelector(".login-bug span");
+
+let loginStatus = () => {
+  fetch("/login/status").then(async (res) => {
+    if (res.status === 200) {
+      const { msg } = await res.json();
+      console.log(msg);
+      loginSpan.innerText = msg;
+    }
+  });
+};
+
+loginStatus();
+
 const products = async () => {
   await fetch("/product")
     .then(async (res) => {

@@ -22,6 +22,7 @@ app.use("/product", product);
 app.post("/login", async (req, res) => {
   const { body } = req;
   const { username, password } = body;
+  console.log(username + " : " + password);
   const getUserResponse = await fetch(`http:localhost:5500/user/${username}`, {
     method: "POST",
     headers: {
@@ -45,12 +46,17 @@ app.post("/login", async (req, res) => {
   }
 });
 
+app.post("/logout", (req, res) => {
+  req.session.destroy();
+  res.send({ msg: "session ended" });
+});
+
 app.get("/login/status", (req, res) => {
   req.sessionStore.get(req.sessionID, (err, session) => {
     console.log("data is moving around...");
   });
   return req.session.user
-    ? res.status(200).send(req.session.user[0].name + " is logged in")
+    ? res.status(200).send({ msg: req.session.user[0].name })
     : res.status(401).send({ msg: "not authenticated" });
 });
 

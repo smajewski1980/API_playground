@@ -46,6 +46,7 @@ button {
   cursor: pointer;
   border: none;
   outline: 1px solid black;
+  background: none;
 }
 
 a {
@@ -57,6 +58,18 @@ a {
   border-radius: 15px;
   cursor: pointer;
   outline: 1px solid black;
+}
+
+.login-bug {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+}
+
+#btn-logout {
+  position: fixed;
+  top: 2.5rem;
+  right: 1rem;
 }
 
 #edit-user-form {

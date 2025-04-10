@@ -22,8 +22,8 @@ router.get("/", (req, res) => {
     if (err) {
       console.error(err);
     } else {
-      console.log(req.session);
-      console.log(req.sessionID);
+      // console.log(req.session);
+      // console.log(req.sessionID);
       req.session.visited = true;
       res.send(result.rows);
     }
