@@ -30,41 +30,16 @@ pool
 //   });
 // });
 
-router.post("/:name", (req, res) => {
+router.get("/:name", (req, res, next) => {
   const name = req.params.name;
-  const pw = req.body.pw;
-  pool.query(
-    "select password from users where name = $1",
-    [name],
-    (err, result) => {
-      if (err) {
-        console.error(err);
-        res.status(400).send("passaword no good");
-      } else {
-        const verify = result.rows;
-        if (!verify[0]) {
-          res.status(401).send({ message: "something went wrong!" });
-          return;
-        }
-        if (verify[0].password !== pw) {
-          console.log("passaword no good");
-          res.status(401).send({ message: "wrong password fool!" });
-        } else {
-          pool.query(
-            "select * from users where name = $1 and password = $2",
-            [name, pw],
-            (err, result) => {
-              if (err) {
-                console.error(err);
-              } else {
-                res.send(result.rows);
-              }
-            }
-          );
-        }
-      }
+
+  pool.query("select * from users where name = $1", [name], (err, result) => {
+    if (err) {
+      next(err);
+    } else {
+      res.send(result.rows);
     }
-  );
+  });
 });
 
 router.post("/", (req, res) => {
