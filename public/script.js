@@ -88,8 +88,6 @@ function handleLoginForm(e) {
   fetch("/login", options)
     .then((res) => res.json())
     .then((res) => {
-      // console.log(res);
-      // displayResponse(`${res[0].name} is now logged in`);
       messageDiv.innerHTML = "Nope, try again!";
 
       if (res[0].name) {
