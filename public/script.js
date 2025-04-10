@@ -67,7 +67,7 @@ function handleCreateCancel() {
 }
 
 function displayResponse(data) {
-  messageDiv.innerHTML = data.message;
+  messageDiv.innerHTML = data;
 }
 
 function handleLoginForm(e) {
@@ -85,16 +85,29 @@ function handleLoginForm(e) {
     },
     body: JSON.stringify(body),
   };
-  const login = fetch("/login", options).then((res) => {
-    // console.log(res);
-    // displayResponse(res.json());
-    loginStatus();
-  });
+  fetch("/login", options)
+    .then((res) => res.json())
+    .then((res) => {
+      // console.log(res);
+      // displayResponse(`${res[0].name} is now logged in`);
+      messageDiv.innerHTML = "Nope, try again!";
+
+      if (res[0].name) {
+        loginForm.style.display = "none";
+        messageDiv.innerHTML = `${res[0].name} is now logged in.`;
+        setTimeout(() => {
+          messageDiv.innerHTML = "";
+        }, 3000);
+        loginStatus();
+        loginUserVal.value = "";
+        loginPassVal.value = "";
+      }
+    });
 }
 
 function handleLogout() {
   const logout = fetch("/logout", { method: "POST" });
-
+  loginForm.style.display = "block";
   loginStatus();
 }
 

@@ -33,7 +33,7 @@ app.post("/login", async (req, res, next) => {
     console.log("login successful!");
     req.session.visited = true;
     req.session.user = user[0].name;
-    res.status(200).send(user);
+    res.status(200).send(JSON.stringify(user));
     return;
   } else {
     const err = new Error("wrong password");
@@ -62,7 +62,7 @@ app.get("/login/status", (req, res, next) => {
 
 app.use((err, req, res, next) => {
   console.log(err);
-  res.status(500).send("errors are whats happening");
+  res.status(500).send(err);
 });
 
 const PORT = process.env.PORT || 5500;
