@@ -32,7 +32,10 @@ products();
 function showProducts() {
   productItems.forEach((item) => {
     productsWrapper.innerHTML += `
-    <div data-prod-id=${item.product_id} class="product-card">
+    <div data-prod-id=${item.product_id} data-name=${item.name.replace(
+      " ",
+      "-"
+    )} data-price=${item.price} class="product-card">
       <img src=${item.img_url} alt=${item.name} />
       <div class="card-text-wrapper">
         <p>&nbsp;&nbsp;name: ${item.name}</p>
@@ -47,7 +50,27 @@ function showProducts() {
 
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("btn-add-to-cart")) {
-    console.log(e.target.parentElement.dataset.prodId);
-    console.log("you clicked one of the add btns");
+    // console.log(e.target.parentElement.dataset.prodId);
+    // console.log("you clicked one of the add btns");
+    const clickedProdId = e.target.parentElement.dataset.prodId;
+    const clickedName = e.target.parentElement.dataset.name;
+    const clickedPrice = e.target.parentElement.dataset.price;
+    const options = {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        product_id: clickedProdId,
+        name: clickedName,
+        price: clickedPrice,
+        quantity: "1",
+      }),
+    };
+    fetch("/cart", options)
+      .then((res) => console.log("item added to cart"))
+      .catch((err) => {
+        console.log(err);
+      });
   }
 });

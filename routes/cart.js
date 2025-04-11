@@ -2,6 +2,17 @@ const express = require("express");
 const router = express.Router();
 
 // get all cart items
+router.get("/", (req, res, next) => {
+  if (!req.session.user) {
+    const err = new Error("go log in first");
+    next(err);
+  } else if (!req.session.cart) {
+    const err = new Error("cart is empty");
+    next(err);
+  } else {
+    res.send(req.session.cart);
+  }
+});
 
 // post an item to cart
 router.post("/", (req, res, next) => {

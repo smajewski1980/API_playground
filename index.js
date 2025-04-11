@@ -5,8 +5,6 @@ const product = require("./routes/product");
 const cart = require("./routes/cart");
 const session = require("express-session");
 
-app.use(express.static("public"));
-app.use(express.json());
 app.use(
   session({
     secret: "isYouCrazy!!",
@@ -17,6 +15,8 @@ app.use(
     },
   })
 );
+app.use(express.static("public"));
+app.use(express.json());
 app.use("/user", user);
 app.use("/product", product);
 app.use("/cart", cart);
