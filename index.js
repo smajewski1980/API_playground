@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const user = require("./routes/user");
 const product = require("./routes/product");
+const cart = require("./routes/cart");
 const session = require("express-session");
 
 app.use(express.static("public"));
@@ -18,6 +19,7 @@ app.use(
 );
 app.use("/user", user);
 app.use("/product", product);
+app.use("/cart", cart);
 
 app.post("/login", async (req, res, next) => {
   const { body } = req;
