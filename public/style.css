@@ -26,7 +26,8 @@ nav {
 }
 
 #products-page-nav,
-#add-product-nav {
+#add-product-nav,
+#cart-nav {
   margin-top: 2rem;
 }
 

@@ -1,5 +1,19 @@
 const cartElem = document.querySelector(".cart-wrapper");
 
+const loginSpan = document.querySelector(".login-bug span");
+
+let loginStatus = () => {
+  fetch("/login/status").then(async (res) => {
+    if (res.status === 200) {
+      const { msg } = await res.json();
+      console.log(msg);
+      loginSpan.innerText = msg;
+    }
+  });
+};
+
+loginStatus();
+
 async function getCartItems() {
   const response = await fetch("/cart")
     .then((res) => res.json())
@@ -10,18 +24,27 @@ async function getCartItems() {
 }
 
 function displayItems(data) {
-  console.log(data);
-  data.forEach((item) => {
-    cartElem.innerHTML += `
-      <div class='cart-item'>
-        <p>${item.product_id}</p>
-        <p>${item.name}</p>
-        <p>${item.price}</p>
-        <p>${item.quantity}</p>
-      </div>
-      <hr>
-    `;
-  });
+  const isEmpty = (obj) => Object.keys(obj).length === 0;
+  console.log(isEmpty(data));
+  if (isEmpty(data)) {
+    cartElem.innerHTML = "This is one empty cart, go add some shit!";
+  } else {
+    cartElem.innerHTML = "";
+    data.forEach((item) => {
+      cartElem.innerHTML += `        
+        <p class='cart-item'>item id: ${
+          item.product_id
+        } &nbsp;&nbsp;&nbsp;name: ${item.name} &nbsp;&nbsp;&nbsp;price: $${
+        item.price
+      } &nbsp;&nbsp;&nbsp;qty: ${
+        item.quantity
+      } &nbsp;&nbsp;&nbsp; item total: $${
+        parseInt(item.price) * parseInt(item.quantity)
+      }</p>
+        <hr>
+      `;
+    });
+  }
 }
 
 getCartItems();
