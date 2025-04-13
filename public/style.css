@@ -122,8 +122,9 @@ img {
   aspect-ratio: 1;
 }
 
-#prod-qty {
+.product-card .prod-qty {
   margin-top: 0.5rem;
   padding: 0.5rem;
-  width: 5rem;
+  width: 4rem;
+  text-align: center;
 }

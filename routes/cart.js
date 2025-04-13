@@ -36,7 +36,6 @@ router.post("/", (req, res, next) => {
     price: price,
     quantity: parseInt(quantity),
   };
-
   if (!product_id || !name || !price || !quantity) {
     const err = new Error("empty field in request body");
     next(err);
