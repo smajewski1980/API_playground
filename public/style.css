@@ -74,12 +74,6 @@ a {
   right: 1rem;
 }
 
-.cart-bug {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-}
-
 #btn-logout {
   position: fixed;
   top: 2.5rem;
@@ -106,4 +100,24 @@ a {
 
 img {
   width: 150px;
+  max-width: 100%;
+}
+
+.cart-bug {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  /* outline: 2px solid lime; */
+  width: 50px;
+}
+
+.cart-bug span {
+  position: absolute;
+  left: 0;
+  background: purple;
+  color: white;
+  border-radius: 50%;
+  font-size: 1rem;
+  width: 1.25rem;
+  aspect-ratio: 1;
 }
