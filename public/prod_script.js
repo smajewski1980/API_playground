@@ -50,7 +50,7 @@ function showProducts() {
       <div class="card-text-wrapper">
         <p>&nbsp;&nbsp;name: ${item.name}</p>
         <p>&nbsp;&nbsp;price: $${item.price}</p>
-        <p>&nbsp;&nbsp;quantity: ${item.quantity}</p>
+        <p>&nbsp;&nbsp;quantity: <input type="number" name="quantity" id="prod-qty"></p>
       </div>
       <button class='btn-add-to-cart'>add to cart</button>
     </div>

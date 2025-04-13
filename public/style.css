@@ -118,6 +118,12 @@ img {
   color: white;
   border-radius: 50%;
   font-size: 1rem;
-  width: 1.25rem;
+  width: 1.5rem;
   aspect-ratio: 1;
+}
+
+#prod-qty {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  width: 5rem;
 }
