@@ -16,6 +16,7 @@ let loginStatus = () => {
       const { msg } = await res.json();
       console.log(msg);
       loginSpan.innerText = msg;
+      loginForm.style.display = "none";
     } else {
       loginSpan.innerText = "No one";
     }
