@@ -10,6 +10,17 @@ const loginPassVal = document.getElementById("password");
 const loginSpan = document.querySelector(".login-bug span");
 const btnLogout = document.getElementById("btn-logout");
 
+const cartCountElem = document.querySelector(".cart-bug span");
+
+async function setCartItemCount() {
+  const response = await fetch("/cart/item-count");
+  const count = await response.json();
+  const cartItemCount = await count.itemCount;
+  cartCountElem.innerText = cartItemCount;
+}
+
+setCartItemCount();
+
 let loginStatus = () => {
   fetch("/login/status").then(async (res) => {
     if (res.status === 200) {
@@ -112,6 +123,7 @@ function handleLogout() {
   const logout = fetch("/logout", { method: "POST" });
   loginForm.style.display = "block";
   loginStatus();
+  setCartItemCount();
 }
 
 btnLogout.addEventListener("click", handleLogout);

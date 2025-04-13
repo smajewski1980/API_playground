@@ -2,6 +2,17 @@ const cartElem = document.querySelector(".cart-wrapper");
 
 const loginSpan = document.querySelector(".login-bug span");
 
+const cartCountElem = document.querySelector(".cart-bug span");
+
+async function setCartItemCount() {
+  const response = await fetch("/cart/item-count");
+  const count = await response.json();
+  const cartItemCount = await count.itemCount;
+  cartCountElem.innerText = cartItemCount;
+}
+
+setCartItemCount();
+
 let loginStatus = () => {
   fetch("/login/status").then(async (res) => {
     if (res.status === 200) {
