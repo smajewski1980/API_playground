@@ -1,6 +1,8 @@
 const productsWrapper = document.querySelector(".products-wrapper");
 let productItems = [];
 const cartCountElem = document.querySelector(".cart-bug span");
+const prodAddedModal = document.querySelector("dialog");
+const btnModalContinue = document.getElementById("btn-modal-continue");
 
 async function setCartItemCount() {
   const response = await fetch("/cart/item-count");
@@ -86,5 +88,12 @@ document.addEventListener("click", (e) => {
         console.log(err);
       });
     setCartItemCount();
+    prodAddedModal.showModal();
+    btnModalContinue.addEventListener("click", handleModalContinue);
+    btnModalCheckout.addEventListener("click", handleModalCheckout);
   }
 });
+
+function handleModalContinue() {
+  prodAddedModal.close();
+}
