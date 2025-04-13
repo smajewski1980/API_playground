@@ -14,6 +14,19 @@ router.get("/", (req, res, next) => {
   }
 });
 
+router.get("/item-count", (req, res, next) => {
+  let itemCount = 0;
+  if (req.session.cart) {
+    req.session.cart.forEach((item) => {
+      itemCount += parseInt(item.quantity);
+    });
+  }
+
+  const qty = req.session.cart ? itemCount : 0;
+  console.log(qty);
+  res.status(200).send();
+});
+
 // post an item to cart
 router.post("/", (req, res, next) => {
   const { product_id, name, price, quantity } = req.body;
