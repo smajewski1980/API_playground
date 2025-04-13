@@ -74,6 +74,12 @@ a {
   right: 1rem;
 }
 
+.cart-bug {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
 #btn-logout {
   position: fixed;
   top: 2.5rem;

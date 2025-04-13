@@ -1,5 +1,15 @@
 const productsWrapper = document.querySelector(".products-wrapper");
 let productItems = [];
+const cartCountElem = document.querySelector(".cart-bug span");
+
+async function setCartItemCount() {
+  const response = await fetch("/cart/item-count");
+  const count = await response.json();
+  const cartItemCount = await count.itemCount;
+  cartCountElem.innerText = cartItemCount;
+}
+
+setCartItemCount();
 
 const loginSpan = document.querySelector(".login-bug span");
 
@@ -72,5 +82,6 @@ document.addEventListener("click", (e) => {
       .catch((err) => {
         console.log(err);
       });
+    setCartItemCount();
   }
 });

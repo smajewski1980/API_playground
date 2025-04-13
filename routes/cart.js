@@ -23,8 +23,8 @@ router.get("/item-count", (req, res, next) => {
   }
 
   const qty = req.session.cart ? itemCount : 0;
-  console.log(qty);
-  res.status(200).send();
+
+  res.status(200).send({ itemCount: itemCount });
 });
 
 // post an item to cart
