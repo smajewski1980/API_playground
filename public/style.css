@@ -141,6 +141,7 @@ caption {
 
 th {
   padding: 1rem 1.5rem;
+  font-weight: 600;
 }
 
 table img {
@@ -160,4 +161,22 @@ table button {
   margin-top: 0rem;
   padding-block: 0.25rem 0.5rem;
   padding-inline: 1rem;
+}
+
+tfoot td,
+tfoot tr,
+tfoot th {
+  padding: 0;
+  border: none;
+}
+
+tfoot th {
+  padding-block: 0.5rem 0.65rem;
+  font-weight: 400;
+}
+
+tfoot tr:last-child th,
+tfoot tr:last-child td {
+  font-size: 1.5rem;
+  font-weight: 700;
 }

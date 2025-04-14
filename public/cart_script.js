@@ -76,9 +76,23 @@ function displayItems(data) {
         </tr>
       `;
       if (counter === cartLength) {
-        html += `<tfoot><tr><th>cart subtotal</th><td></td><td></td><td></td><td>$${cartSubTotal.toLocaleString()}</td></tr></tfoot>`;
+        const shipping = cartSubTotal * 0.2;
+        const total = shipping + cartSubTotal;
+        html += `
+          <tfoot>
+            <tr>
+              <td></td><td></td><td></td><th>cart subtotal</th><td>$${cartSubTotal.toLocaleString()}</td>
+            </tr>
+            <tr>
+              <td></td><td></td><td></td><th>shipping</th><td>$${shipping.toLocaleString()}</td>
+            </tr>
+            <tr>
+              <td></td><td></td><td></td><th>TOTAL</th><td>$${total.toLocaleString()}</td>
+            </tr>
+          </tfoot>`;
         cartTable.innerHTML += html;
       }
+
       counter++;
     });
   }
