@@ -132,3 +132,9 @@ img {
 table img {
   max-width: 60px;
 }
+
+table button {
+  margin-top: 0rem;
+  padding-block: 0.25rem 0.5rem;
+  padding-inline: 1rem;
+}

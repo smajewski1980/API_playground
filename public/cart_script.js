@@ -47,12 +47,17 @@ function displayItems(data) {
   if (isEmpty(data)) {
     cartElem.innerHTML = "This is one empty cart, go add some shit!";
   } else {
+    const cartLength = data.length;
+    let counter = 1;
+
     cartTable.innerHTML =
       "<thead><td></td><td>Product Name</td><td>Quantity</td><td>Product Subtotal</td><td></td></thead>";
 
+    let html = "";
+
     data.forEach(async (item) => {
       const img = await getImgSrc(item.product_id);
-      cartTable.innerHTML += `
+      html += `
         <tr>
         <td><img src=${img} alt=""></td>
         <td>${item.name}</td>
@@ -61,6 +66,10 @@ function displayItems(data) {
         <td><button data-prod-id=${item.product_id}>Adj Qty</button></td>
         </tr>
       `;
+      if (counter === cartLength) {
+        cartTable.innerHTML += html;
+      }
+      counter++;
     });
   }
 }
