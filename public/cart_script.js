@@ -51,9 +51,13 @@ function displayItems(data) {
     let counter = 1;
 
     cartTable.innerHTML =
-      "<thead><td></td><td>Product Name</td><td>Quantity</td><td>Product Subtotal</td><td></td></thead>";
+      "<thead><td></td><td>Product Name</td><td>Quantity</td><td>Price</td><td>Product Subtotal</td><td></td></thead>";
 
     let html = "";
+
+    function getSub(price, qty) {
+      return price * qty;
+    }
 
     data.forEach(async (item) => {
       const img = await getImgSrc(item.product_id);
@@ -62,7 +66,8 @@ function displayItems(data) {
         <td><img src=${img} alt=""></td>
         <td>${item.name}</td>
         <td>${item.quantity}</td>
-        <td>${parseInt(item.price) * parseInt(item.quantity)}</td>
+        <td>$${getSub(item.price, 1).toLocaleString()}</td>
+        <td>$${getSub(item.price, item.quantity).toLocaleString()}</td>
         <td><button data-prod-id=${item.product_id}>Adj Qty</button></td>
         </tr>
       `;
