@@ -92,7 +92,7 @@ document.addEventListener("click", (e) => {
         document.getElementById("modal-added-qty").innerText = qty;
         document.getElementById("modal-img").src = imgSrc;
         console.log("item added to cart");
-        if (res) {
+        if (res.quantity >= 1) {
           prodAddedModal.showModal();
           btnModalContinue.addEventListener("click", handleModalContinue);
         }
