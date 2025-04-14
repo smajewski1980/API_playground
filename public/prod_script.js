@@ -54,7 +54,7 @@ function showProducts() {
         <p>&nbsp;&nbsp;price: $${item.price}</p>
         <p>&nbsp;&nbsp;quantity:&nbsp;&nbsp;<input type="number" name="quantity" class="prod-qty" id="prod-${
           item.product_id
-        }-qty" min=0></p>
+        }-qty" min=1></p>
       </div>
       <button class='btn-add-to-cart'>add to cart</button>
     </div>
@@ -69,6 +69,7 @@ document.addEventListener("click", (e) => {
     const clickedProdId = e.target.parentElement.dataset.prodId;
     const clickedName = e.target.parentElement.dataset.name;
     const clickedPrice = e.target.parentElement.dataset.price;
+    const imgSrc = e.target.parentElement.children[0].src;
     const quantity = document.getElementById(`prod-${clickedProdId}-qty`).value;
     const options = {
       method: "POST",
@@ -83,9 +84,15 @@ document.addEventListener("click", (e) => {
       }),
     };
     fetch("/cart", options)
+      .then((res) => res.json())
       .then((res) => {
+        const name = res.name;
+        const qty = res.quantity;
+        document.getElementById("modal-added-name").innerText = name;
+        document.getElementById("modal-added-qty").innerText = qty;
+        document.getElementById("modal-img").src = imgSrc;
         console.log("item added to cart");
-        if (res.ok) {
+        if (res) {
           prodAddedModal.showModal();
           btnModalContinue.addEventListener("click", handleModalContinue);
         }

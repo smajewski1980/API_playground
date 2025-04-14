@@ -44,7 +44,7 @@ router.post("/", (req, res, next) => {
 
   if (!req.session.cart && req.session.user) {
     req.session.cart = [newItem];
-    res.status(200).send(req.session.cart);
+    res.status(200).send(newItem);
   } else if (req.session.user) {
     const cartHasItem = req.session.cart.find(
       (item) => item.product_id === newItem.product_id
@@ -52,7 +52,7 @@ router.post("/", (req, res, next) => {
 
     if (!cartHasItem) {
       req.session.cart.push(newItem);
-      res.status(200).send(req.session.cart);
+      res.status(200).send(newItem);
     } else {
       const newItemQty = newItem.quantity;
       const index = req.session.cart.findIndex(
