@@ -51,7 +51,7 @@ function displayItems(data) {
     let counter = 1;
 
     cartTable.innerHTML =
-      "<caption>Your Cart</caption><thead><th></th><th>Product Name</th><th>Price</th><th>Quantity</th><th>Product Subtotal</th>";
+      "<caption>Your Cart</caption><thead><th></th><th>Product Name</th><th>Price</th><th>Quantity</th><th></th><th>Product Subtotal</th>";
 
     let html = "";
 
@@ -71,8 +71,15 @@ function displayItems(data) {
         <td>${item.name}</td>
         <td>$${getSub(item.price, 1).toLocaleString()}</td>
         <td>${item.quantity}</td>
+        <td>
+          <button class="cart-item-adj" data-prod-id=${
+            item.product_id
+          }>Adj Qty</button>
+          <button class="cart-item-del" data-prod-id=${
+            item.product_id
+          }>Remove</button>
+        </td>
         <td>$${itemSub.toLocaleString()}</td>
-        <td><button data-prod-id=${item.product_id}>Adj Qty</button></td>
         </tr>
       `;
       if (counter === cartLength) {
@@ -81,13 +88,13 @@ function displayItems(data) {
         html += `
           <tfoot>
             <tr>
-              <td></td><td></td><td></td><th>cart subtotal</th><td>$${cartSubTotal.toLocaleString()}</td>
+              <td></td><td></td><td></td><td></td><th>cart subtotal</th><td>$${cartSubTotal.toLocaleString()}</td>
             </tr>
             <tr>
-              <td></td><td></td><td></td><th>shipping</th><td>$${shipping.toLocaleString()}</td>
+              <td></td><td></td><td></td><td></td><th>shipping</th><td>$${shipping.toLocaleString()}</td>
             </tr>
             <tr>
-              <td></td><td></td><td></td><th>TOTAL</th><td>$${total.toLocaleString()}</td>
+              <td></td><td></td><td></td><td></td><th>TOTAL</th><td>$${total.toLocaleString()}</td>
             </tr>
           </tfoot>`;
         cartTable.innerHTML += html;
