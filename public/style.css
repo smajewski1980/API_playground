@@ -128,3 +128,7 @@ img {
   width: 4rem;
   text-align: center;
 }
+
+table img {
+  max-width: 60px;
+}

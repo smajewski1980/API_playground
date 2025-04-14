@@ -34,9 +34,12 @@ async function getCartItems() {
     });
 }
 
-// async function getImgSrc(id) {
-//   await fetch()
-// }
+async function getImgSrc(id) {
+  const response = await fetch(`/product/${id}`)
+    .then((res) => res.json())
+    .then((res) => res[0].img_url);
+  return await response;
+}
 
 function displayItems(data) {
   const isEmpty = (obj) => Object.keys(obj).length === 0;
@@ -45,16 +48,18 @@ function displayItems(data) {
     cartElem.innerHTML = "This is one empty cart, go add some shit!";
   } else {
     cartTable.innerHTML =
-      "<thead><td>Product ID</td><td>Product Name</td><td>Quantity</td><td>Product Subtotal</td><td></td></thead>";
+      "<thead><td></td><td>Product Name</td><td>Quantity</td><td>Product Subtotal</td><td></td></thead>";
 
-    data.forEach((item) => {
-      const img = getImgSrc(item.product_id);
+    data.forEach(async (item) => {
+      const img = await getImgSrc(item.product_id);
       cartTable.innerHTML += `
-        <td>${item.product_id}</td>
+        <tr>
+        <td><img src=${img} alt=""></td>
         <td>${item.name}</td>
         <td>${item.quantity}</td>
         <td>${parseInt(item.price) * parseInt(item.quantity)}</td>
         <td><button data-prod-id=${item.product_id}>Adj Qty</button></td>
+        </tr>
       `;
     });
   }

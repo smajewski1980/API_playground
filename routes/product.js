@@ -29,6 +29,21 @@ router.get("/", (req, res, next) => {
 });
 
 // need to make a get "/:id" endpoint here
+router.get("/:id", (req, res, next) => {
+  const id = parseInt(req.params.id);
+  pool.query(
+    "select * from products where product_id = $1",
+    [id],
+    (err, result) => {
+      if (err) {
+        next(err);
+        return;
+      } else {
+        res.status(200).send(result.rows);
+      }
+    }
+  );
+});
 
 router.post("/", (req, res, next) => {
   const body = req.body;
