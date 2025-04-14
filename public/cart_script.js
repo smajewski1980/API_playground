@@ -1,4 +1,4 @@
-const cartElem = document.querySelector(".cart-wrapper");
+const cartTable = document.querySelector("table");
 
 const loginSpan = document.querySelector(".login-bug span");
 
@@ -34,25 +34,27 @@ async function getCartItems() {
     });
 }
 
+// async function getImgSrc(id) {
+//   await fetch()
+// }
+
 function displayItems(data) {
   const isEmpty = (obj) => Object.keys(obj).length === 0;
   console.log(isEmpty(data));
   if (isEmpty(data)) {
     cartElem.innerHTML = "This is one empty cart, go add some shit!";
   } else {
-    cartElem.innerHTML = "";
+    cartTable.innerHTML =
+      "<thead><td>Product ID</td><td>Product Name</td><td>Quantity</td><td>Product Subtotal</td><td></td></thead>";
+
     data.forEach((item) => {
-      cartElem.innerHTML += `        
-        <p class='cart-item'>item id: ${
-          item.product_id
-        } &nbsp;&nbsp;&nbsp;name: ${item.name} &nbsp;&nbsp;&nbsp;price: $${
-        item.price
-      } &nbsp;&nbsp;&nbsp;qty: ${
-        item.quantity
-      } &nbsp;&nbsp;&nbsp; item total: $${
-        parseInt(item.price) * parseInt(item.quantity)
-      }</p>
-        <hr>
+      const img = getImgSrc(item.product_id);
+      cartTable.innerHTML += `
+        <td>${item.product_id}</td>
+        <td>${item.name}</td>
+        <td>${item.quantity}</td>
+        <td>${parseInt(item.price) * parseInt(item.quantity)}</td>
+        <td><button data-prod-id=${item.product_id}>Adj Qty</button></td>
       `;
     });
   }

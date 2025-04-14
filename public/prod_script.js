@@ -91,8 +91,8 @@ document.addEventListener("click", (e) => {
         document.getElementById("modal-added-name").innerText = name;
         document.getElementById("modal-added-qty").innerText = qty;
         document.getElementById("modal-img").src = imgSrc;
-        console.log("item added to cart");
         if (res.quantity >= 1) {
+          console.log("item added to cart");
           prodAddedModal.showModal();
           btnModalContinue.addEventListener("click", handleModalContinue);
         }

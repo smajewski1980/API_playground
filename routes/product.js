@@ -28,6 +28,8 @@ router.get("/", (req, res, next) => {
   });
 });
 
+// need to make a get "/:id" endpoint here
+
 router.post("/", (req, res, next) => {
   const body = req.body;
   for (const val in body) {
