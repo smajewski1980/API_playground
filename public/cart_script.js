@@ -1,5 +1,5 @@
 const cartTable = document.querySelector("table");
-
+const cartMsg = document.querySelector(".cart-msg");
 const loginSpan = document.querySelector(".login-bug span");
 
 const cartCountElem = document.querySelector(".cart-bug span");
@@ -45,13 +45,13 @@ function displayItems(data) {
   const isEmpty = (obj) => Object.keys(obj).length === 0;
   console.log(isEmpty(data));
   if (isEmpty(data)) {
-    cartElem.innerHTML = "This is one empty cart, go add some shit!";
+    cartMsg.innerHTML = "This is one empty cart, go add some shit!";
   } else {
     const cartLength = data.length;
     let counter = 1;
 
     cartTable.innerHTML =
-      "<thead><td></td><td>Product Name</td><td>Quantity</td><td>Price</td><td>Product Subtotal</td><td></td></thead>";
+      "<caption>Your Cart</caption><thead><th></th><th>Product Name</th><th>Price</th><th>Quantity</th><th>Product Subtotal</th><t></t></thead>";
 
     let html = "";
 
@@ -65,8 +65,8 @@ function displayItems(data) {
         <tr>
         <td><img src=${img} alt=""></td>
         <td>${item.name}</td>
-        <td>${item.quantity}</td>
         <td>$${getSub(item.price, 1).toLocaleString()}</td>
+        <td>${item.quantity}</td>
         <td>$${getSub(item.price, item.quantity).toLocaleString()}</td>
         <td><button data-prod-id=${item.product_id}>Adj Qty</button></td>
         </tr>

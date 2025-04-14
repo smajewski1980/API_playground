@@ -129,8 +129,31 @@ img {
   text-align: center;
 }
 
+table {
+  border: 1px solid black;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+caption {
+  margin-bottom: 1rem;
+}
+
+th {
+  padding: 1rem 1.5rem;
+}
+
 table img {
   max-width: 50px;
+}
+
+tr {
+  border: 1px solid black;
+  padding-inline: 1rem;
+}
+
+td {
+  padding: 1rem;
 }
 
 table button {
