@@ -1,7 +1,8 @@
 const cartTable = document.querySelector("table");
 const cartMsg = document.querySelector(".cart-msg");
 const loginSpan = document.querySelector(".login-bug span");
-
+const adjQtyModal = document.querySelector("dialog");
+const btnModalUpdate = document.getElementById("btn-modal-update");
 const cartCountElem = document.querySelector(".cart-bug span");
 
 async function setCartItemCount() {
@@ -129,6 +130,11 @@ function handleBtnDelete(e) {
 function handleBtnAdj(e) {
   e.preventDefault();
   let prod_id = e.target.dataset.prodId;
+  adjQtyModal.showModal();
 }
 
 getCartItems();
+
+btnModalUpdate.addEventListener("click", () => {
+  adjQtyModal.close();
+});
