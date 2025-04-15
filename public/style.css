@@ -187,3 +187,12 @@ tfoot tr:last-child td {
 tfoot tr {
   border: none;
 }
+
+#modal-update-qty {
+  width: 4rem;
+  text-align: right;
+  writing-mode: ltr;
+  padding: 0.25rem;
+  font-size: 1.25rem;
+  margin-top: 1rem;
+}

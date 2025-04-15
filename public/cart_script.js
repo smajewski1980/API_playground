@@ -2,6 +2,9 @@ const cartTable = document.querySelector("table");
 const cartMsg = document.querySelector(".cart-msg");
 const loginSpan = document.querySelector(".login-bug span");
 const adjQtyModal = document.querySelector("dialog");
+const modalImg = document.getElementById("modal-img");
+const modalName = document.getElementById("modal-update-name");
+const modalQty = document.getElementById("modal-update-qty");
 const btnModalUpdate = document.getElementById("btn-modal-update");
 const cartCountElem = document.querySelector(".cart-bug span");
 
@@ -127,10 +130,19 @@ function handleBtnDelete(e) {
     .finally(() => setCartItemCount());
 }
 
-function handleBtnAdj(e) {
+async function handleBtnAdj(e) {
   e.preventDefault();
-  let prod_id = e.target.dataset.prodId;
-  adjQtyModal.showModal();
+  let prodId = e.target.dataset.prodId;
+  const imgSrc = await getImgSrc(prodId);
+
+  await fetch(`/cart/${prodId}`)
+    .then((res) => res.json())
+    .then((res) => {
+      modalImg.src = imgSrc;
+      modalName.innerText = res.name;
+      modalQty.value = res.quantity;
+      adjQtyModal.showModal();
+    });
 }
 
 getCartItems();
