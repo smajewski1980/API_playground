@@ -31,7 +31,7 @@ const isLoggedIn = () => {
           generateUserEdit(res[0]);
         });
     } else {
-      messageElem.innerText = "go log in first";
+      messageElem.style.setProperty("--overlay-display", "grid");
     }
   });
 };
