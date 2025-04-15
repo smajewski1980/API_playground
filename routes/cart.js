@@ -74,7 +74,7 @@ router.post("/", (req, res, next) => {
         (obj) => obj.product_id === newItem.product_id
       );
       req.session.cart[index].quantity += parseInt(newItemQty);
-      res.status(200).send(req.session.cart);
+      res.status(200).send(newItem);
     }
   }
 });

@@ -3,6 +3,9 @@ let productItems = [];
 const cartCountElem = document.querySelector(".cart-bug span");
 const prodAddedModal = document.querySelector("dialog");
 const btnModalContinue = document.getElementById("btn-modal-continue");
+const modalName = document.getElementById("modal-added-name");
+const modalQty = document.getElementById("modal-added-qty");
+const modalImg = document.getElementById("modal-img");
 
 async function setCartItemCount() {
   const response = await fetch("/cart/item-count");
@@ -54,7 +57,7 @@ function showProducts() {
         <p>&nbsp;&nbsp;price: $${item.price}</p>
         <p>&nbsp;&nbsp;quantity:&nbsp;&nbsp;<input type="number" name="quantity" class="prod-qty" id="prod-${
           item.product_id
-        }-qty" min=1></p>
+        }-qty" min="1"></p>
       </div>
       <button class='btn-add-to-cart'>add to cart</button>
     </div>
@@ -86,15 +89,15 @@ document.addEventListener("click", (e) => {
     fetch("/cart", options)
       .then((res) => res.json())
       .then((res) => {
+        console.log(res);
         const name = res.name;
         const qty = res.quantity;
-        document.getElementById("modal-added-name").innerText = name;
-        document.getElementById("modal-added-qty").innerText = qty;
-        document.getElementById("modal-img").src = imgSrc;
+        modalName.innerText = name;
+        modalQty.innerText = qty;
+        modalImg.src = imgSrc;
         if (res.quantity >= 1) {
           console.log("item added to cart");
           prodAddedModal.showModal();
-          btnModalContinue.addEventListener("click", handleModalContinue);
         }
       })
       .catch((err) => {
@@ -111,3 +114,5 @@ function handleModalContinue() {
     input.value = "";
   });
 }
+
+btnModalContinue.addEventListener("click", handleModalContinue);
