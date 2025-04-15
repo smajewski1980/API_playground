@@ -79,6 +79,24 @@ router.post("/", (req, res, next) => {
   }
 });
 
+// update cart qty during checkout
+router.put("/", (req, res, next) => {
+  const { product_id, name, price, quantity } = req.body;
+  const updatedItem = {
+    product_id: product_id,
+    name: name,
+    price: price,
+    quantity: parseInt(quantity),
+  };
+
+  const index = req.session.cart.findIndex(
+    (obj) => obj.product_id === updatedItem.product_id
+  );
+
+  req.session.cart[index] = updatedItem;
+  res.status(200).send(req.session.cart);
+});
+
 router.delete("/:id", (req, res, next) => {
   const id = req.params.id;
   const index = req.session.cart.findIndex((item) => item.product_id === id);

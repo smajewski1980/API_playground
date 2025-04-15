@@ -130,6 +130,8 @@ function handleBtnDelete(e) {
     .finally(() => setCartItemCount());
 }
 
+let currentItem = null;
+
 async function handleBtnAdj(e) {
   e.preventDefault();
   let prodId = e.target.dataset.prodId;
@@ -138,6 +140,12 @@ async function handleBtnAdj(e) {
   await fetch(`/cart/${prodId}`)
     .then((res) => res.json())
     .then((res) => {
+      currentItem = {
+        product_id: prodId,
+        name: res.name,
+        price: res.price,
+        quantity: res.quantity,
+      };
       modalImg.src = imgSrc;
       modalName.innerText = res.name;
       modalQty.value = res.quantity;
@@ -147,6 +155,30 @@ async function handleBtnAdj(e) {
 
 getCartItems();
 
-btnModalUpdate.addEventListener("click", () => {
+async function handleAdjQty(e) {
+  e.preventDefault();
+  // let prodId = e.target.dataset.prodId;
+  const options = {
+    method: "PUT",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      product_id: currentItem.product_id,
+      name: currentItem.name,
+      price: currentItem.price,
+      quantity: modalQty.value,
+    }),
+  };
+  await fetch("/cart", options)
+    .then((res) => res.json())
+    .then((res) => {
+      displayItems(res);
+    });
+
+  await setCartItemCount();
   adjQtyModal.close();
-});
+  currentItem = null;
+}
+
+btnModalUpdate.addEventListener("click", handleAdjQty);
