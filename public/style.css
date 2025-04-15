@@ -183,3 +183,7 @@ tfoot tr:last-child td {
 tfoot tr:last-child td {
   padding-inline: 0.5rem;
 }
+
+tfoot tr {
+  border: none;
+}

@@ -101,8 +101,34 @@ function displayItems(data) {
       }
 
       counter++;
+      const delBtns = document.querySelectorAll(".cart-item-del");
+      const adjQtyBtns = document.querySelectorAll(".cart-item-adj");
+      delBtns.forEach((btn) => {
+        btn.addEventListener("click", handleBtnDelete);
+      });
+      adjQtyBtns.forEach((btn) => {
+        btn.addEventListener("click", handleBtnAdj);
+      });
     });
   }
+}
+
+function handleBtnDelete(e) {
+  e.preventDefault();
+  let prod_id = e.target.dataset.prodId;
+
+  fetch(`cart/${prod_id}`, { method: "DELETE" })
+    .then((res) => res.json())
+    .then((res) => displayItems(res))
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => setCartItemCount());
+}
+
+function handleBtnAdj(e) {
+  e.preventDefault();
+  let prod_id = e.target.dataset.prodId;
 }
 
 getCartItems();

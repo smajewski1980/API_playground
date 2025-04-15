@@ -63,6 +63,15 @@ router.post("/", (req, res, next) => {
     }
   }
 });
+
+router.delete("/:id", (req, res, next) => {
+  const id = req.params.id;
+  const index = req.session.cart.findIndex((item) => item.product_id === id);
+  if (index !== -1) {
+    req.session.cart.splice(index, 1);
+  }
+  res.send(req.session.cart);
+});
 // cart/checkout - to return checkout object data
 
 module.exports = router;
