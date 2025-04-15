@@ -24,6 +24,8 @@ let loginStatus = () => {
       const { msg } = await res.json();
       console.log(msg);
       loginSpan.innerText = msg;
+    } else {
+      productsWrapper.style.setProperty("--overlay-display", "grid");
     }
   });
 };
@@ -87,9 +89,16 @@ document.addEventListener("click", (e) => {
       }),
     };
     fetch("/cart", options)
-      .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+        if (!res.ok) {
+          // put our not logged in code here
+          return { msg: "there was a problem" };
+        } else {
+          return res.json();
+        }
+      })
+      .then((res) => {
+        // console.log(res);
         const name = res.name;
         const qty = res.quantity;
         modalName.innerText = name;
