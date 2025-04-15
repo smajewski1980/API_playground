@@ -27,6 +27,21 @@ router.get("/item-count", (req, res, next) => {
   res.status(200).send({ itemCount: itemCount });
 });
 
+// get cart item by id, return the cartItem obj
+router.get("/:id", (req, res, next) => {
+  const id = req.params.id;
+  const itemIndex = req.session.cart.findIndex(
+    (item) => item.product_id === id
+  );
+  if (itemIndex === -1) {
+    const err = new Error("that product id is not in the cart");
+    next(err);
+  } else {
+    const item = req.session.cart[itemIndex];
+    res.json(item);
+  }
+});
+
 // post an item to cart
 router.post("/", (req, res, next) => {
   const { product_id, name, price, quantity } = req.body;
