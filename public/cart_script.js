@@ -50,6 +50,7 @@ function displayItems(data) {
   console.log(isEmpty(data));
   if (isEmpty(data)) {
     cartMsg.innerHTML = "This is one empty cart, go add some shit!";
+    cartTable.innerHTML = "";
   } else {
     const cartLength = data.length;
     let counter = 1;
