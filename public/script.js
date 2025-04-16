@@ -9,6 +9,7 @@ const loginUserVal = document.getElementById("name");
 const loginPassVal = document.getElementById("password");
 const loginSpan = document.querySelector(".login-bug span");
 const btnLogout = document.getElementById("btn-logout");
+const btnNavCart = document.querySelector("#home-nav a:nth-child(3)");
 
 const cartCountElem = document.querySelector(".cart-bug span");
 
@@ -28,8 +29,20 @@ let loginStatus = () => {
       console.log(msg);
       loginSpan.innerText = msg;
       loginForm.style.display = "none";
+      btnNavCart.style.pointerEvents = "initial";
+      btnNavCart.style.opacity = "1";
+      btnLogout.style.pointerEvents = "initial";
+      btnLogout.style.opacity = "1";
+      btnCreateUser.style.pointerEvents = "none";
+      btnCreateUser.style.opacity = ".5";
     } else {
       loginSpan.innerText = "No one";
+      btnNavCart.style.pointerEvents = "none";
+      btnNavCart.style.opacity = ".5";
+      btnLogout.style.pointerEvents = "none";
+      btnLogout.style.opacity = ".5";
+      btnCreateUser.style.pointerEvents = "initial";
+      btnCreateUser.style.opacity = "1";
     }
   });
 };
