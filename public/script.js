@@ -114,6 +114,9 @@ function handleLoginForm(e) {
     .then((res) => {
       if (!res.ok) {
         messageDiv.innerHTML = "Nope, try again!";
+        setTimeout(() => {
+          messageDiv.innerHTML = "";
+        }, 2500);
       } else {
         return res.json();
       }
