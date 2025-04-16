@@ -8,6 +8,8 @@ const modalQty = document.getElementById("modal-update-qty");
 const btnModalCancel = document.getElementById("btn-modal-cancel");
 const btnModalUpdate = document.getElementById("btn-modal-update");
 const cartCountElem = document.querySelector(".cart-bug span");
+const btnPay = document.querySelector("#btn-pay");
+// const shippingElem = document.querySelector(".shipping-info-wrapper");
 
 async function setCartItemCount() {
   const response = await fetch("/cart/item-count");
@@ -17,6 +19,16 @@ async function setCartItemCount() {
 }
 
 setCartItemCount();
+let currentUserName = "";
+// let currentUserObj = null;
+
+async function getCurrentUserData(user) {
+  const response = await fetch(`/user/${user}`);
+  const data = await response.json();
+  currentUserObj = await data;
+  console.log(await currentUserObj);
+  return currentUserObj;
+}
 
 let loginStatus = () => {
   fetch("/login/status").then(async (res) => {
@@ -24,6 +36,8 @@ let loginStatus = () => {
       const { msg } = await res.json();
       console.log(msg);
       loginSpan.innerText = msg;
+      currentUserName = msg;
+      getCurrentUserData(msg);
     }
   });
 };
@@ -36,6 +50,7 @@ async function getCartItems() {
       if (!res.ok) {
         cartMsg.innerHTML = "This is one empty cart, go add some shit!";
         cartTable.innerHTML = "";
+        btnPay.style.display = "none";
       } else {
         return res.json();
       }
@@ -55,7 +70,7 @@ async function getImgSrc(id) {
 
 function displayItems(data) {
   const isEmpty = (obj) => Object.keys(obj).length === 0;
-  console.log("isemptydata" + isEmpty(data));
+
   if (isEmpty(data)) {
     cartMsg.innerHTML = "This is one empty cart, go add some shit!";
     cartTable.innerHTML = "";
@@ -72,12 +87,17 @@ function displayItems(data) {
       return price * qty;
     }
 
+    function calcSalesTax(subtotal, shipping) {
+      return (subtotal + shipping) * 0.1;
+    }
+
     let cartSubTotal = 0;
 
     data.forEach(async (item) => {
       const img = await getImgSrc(item.product_id);
       const itemSub = getSub(item.price, item.quantity);
       cartSubTotal += parseInt(itemSub);
+      const currentUserObj = await getCurrentUserData(currentUserName);
       html += `
         <tr>
         <td><img src=${img} alt=""></td>
@@ -101,16 +121,35 @@ function displayItems(data) {
         html += `
           <tfoot>
             <tr>
-              <td></td><td></td><td></td><td></td><th>cart subtotal</th><td>$${cartSubTotal.toLocaleString()}</td>
+              <td></td><td>Ship To:</td><td></td><td></td><th>cart subtotal</th><td>$${cartSubTotal.toLocaleString()}</td>
             </tr>
             <tr>
-              <td></td><td></td><td></td><td></td><th>shipping</th><td>$${shipping.toLocaleString()}</td>
+              <td></td><td><div class="shipping-info-wrapper">
+               <p>${currentUserObj[0].name}</p>
+               <p>${currentUserObj[0].email}</p>
+               <p>${currentUserObj[0].phone}</p>
+               <p>${currentUserObj[0].address_line_1}</p>
+               <p>${currentUserObj[0].address_line_2}</p>
+              </div></td><td></td><td></td><th>shipping</th><td>$${shipping.toLocaleString()}</td>
+            </tr>
+            <tr>
+              <td></td><td></td><td></td><td></td><th>sales tax</th><td>$${calcSalesTax(
+                cartSubTotal,
+                shipping
+              ).toLocaleString()}</td>
             </tr>
             <tr>
               <td></td><td></td><td></td><td></td><th>TOTAL</th><td>$${total.toLocaleString()}</td>
             </tr>
           </tfoot>`;
         cartTable.innerHTML += html;
+        // shippingElem.innerHTML = `
+        //     <p>Ship To:</p>
+        //     <p>${currentUserObj[0].name}</p>
+        //     <p>${currentUserObj[0].email}</p>
+        //     <p>${currentUserObj[0].address_line_1}</p>
+        //     <p>${currentUserObj[0].address_line_2}</p>
+        // `;
       }
 
       counter++;
