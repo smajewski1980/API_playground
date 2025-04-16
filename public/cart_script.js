@@ -166,6 +166,9 @@ getCartItems();
 
 async function handleAdjQty(e) {
   e.preventDefault();
+  if (modalQty.value < 1) {
+    modalQty.value = 1;
+  }
   // let prodId = e.target.dataset.prodId;
   const options = {
     method: "PUT",
