@@ -111,10 +111,14 @@ function handleLoginForm(e) {
     body: JSON.stringify(body),
   };
   fetch("/login", options)
-    .then((res) => res.json())
     .then((res) => {
-      messageDiv.innerHTML = "Nope, try again!";
-
+      if (!res.ok) {
+        messageDiv.innerHTML = "Nope, try again!";
+      } else {
+        return res.json();
+      }
+    })
+    .then((res) => {
       if (res[0].name) {
         loginForm.style.display = "none";
         messageDiv.innerHTML = `${res[0].name} is now logged in.`;
