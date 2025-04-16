@@ -32,7 +32,14 @@ loginStatus();
 
 async function getCartItems() {
   const response = await fetch("/cart")
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) {
+        cartMsg.innerHTML = "This is one empty cart, go add some shit!";
+        cartTable.innerHTML = "";
+      } else {
+        return res.json();
+      }
+    })
     .then((res) => displayItems(res))
     .catch((err) => {
       console.log(err);
@@ -48,7 +55,7 @@ async function getImgSrc(id) {
 
 function displayItems(data) {
   const isEmpty = (obj) => Object.keys(obj).length === 0;
-  console.log(isEmpty(data));
+  console.log("isemptydata" + isEmpty(data));
   if (isEmpty(data)) {
     cartMsg.innerHTML = "This is one empty cart, go add some shit!";
     cartTable.innerHTML = "";

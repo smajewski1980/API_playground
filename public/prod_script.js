@@ -6,6 +6,7 @@ const btnModalContinue = document.getElementById("btn-modal-continue");
 const modalName = document.getElementById("modal-added-name");
 const modalQty = document.getElementById("modal-added-qty");
 const modalImg = document.getElementById("modal-img");
+const btnNavCart = document.querySelector("#products-page-nav a:last-child");
 
 async function setCartItemCount() {
   const response = await fetch("/cart/item-count");
@@ -26,6 +27,8 @@ let loginStatus = () => {
       loginSpan.innerText = msg;
     } else {
       productsWrapper.style.setProperty("--overlay-display", "grid");
+      btnNavCart.style.pointerEvents = "none";
+      btnNavCart.style.opacity = ".5";
     }
   });
 };
