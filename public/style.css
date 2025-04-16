@@ -227,3 +227,16 @@ tfoot tr {
   font-size: 1.25rem;
   margin-top: 1rem;
 }
+
+dialog {
+  margin: auto;
+  padding: 2rem;
+}
+
+.modal-prod-info-wrapper {
+  display: grid;
+  margin-top: 1rem;
+  gap: 1rem;
+  justify-items: center;
+  width: 350px;
+}

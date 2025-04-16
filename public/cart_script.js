@@ -5,6 +5,7 @@ const adjQtyModal = document.querySelector("dialog");
 const modalImg = document.getElementById("modal-img");
 const modalName = document.getElementById("modal-update-name");
 const modalQty = document.getElementById("modal-update-qty");
+const btnModalCancel = document.getElementById("btn-modal-cancel");
 const btnModalUpdate = document.getElementById("btn-modal-update");
 const cartCountElem = document.querySelector(".cart-bug span");
 
@@ -183,3 +184,6 @@ async function handleAdjQty(e) {
 }
 
 btnModalUpdate.addEventListener("click", handleAdjQty);
+btnModalCancel.addEventListener("click", () => {
+  adjQtyModal.close();
+});
