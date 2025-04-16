@@ -10,14 +10,17 @@ const btnModalUpdate = document.getElementById("btn-modal-update");
 const cartCountElem = document.querySelector(".cart-bug span");
 const btnPay = document.querySelector("#btn-pay");
 
-async function setCartItemCount() {
+async function setCartItemCount(bool) {
   const response = await fetch("/cart/item-count");
   const count = await response.json();
   const cartItemCount = await count.itemCount;
   cartCountElem.innerText = cartItemCount;
+  if (bool) {
+    window.location.reload();
+  }
 }
 
-setCartItemCount();
+setCartItemCount(false);
 let currentUserName = "";
 let currentUserGlObj;
 let cartGlObj;
@@ -26,7 +29,7 @@ async function getCurrentUserData(user) {
   const response = await fetch(`/user/${user}`);
   const data = await response.json();
   currentUserObj = await data;
-  console.log(await currentUserObj);
+  // console.log(await currentUserObj);
   return currentUserObj;
 }
 
@@ -34,7 +37,7 @@ let loginStatus = () => {
   fetch("/login/status").then(async (res) => {
     if (res.status === 200) {
       const { msg } = await res.json();
-      console.log(msg);
+      // console.log(msg);
       loginSpan.innerText = msg;
       currentUserName = msg;
       getCurrentUserData(msg);
@@ -50,7 +53,6 @@ async function getCartItems() {
       if (!res.ok) {
         cartMsg.innerHTML = "This is one empty cart, go add some shit!";
         cartTable.innerHTML = "";
-        btnPay.style.display = "none";
       } else {
         return res.json();
       }
@@ -77,6 +79,7 @@ function displayItems(data) {
   if (isEmpty(data)) {
     cartMsg.innerHTML = "This is one empty cart, go add some shit!";
     cartTable.innerHTML = "";
+    btnPay.style.display = "none";
   } else {
     const cartLength = data.length;
     let counter = 1;
@@ -172,7 +175,10 @@ function handleBtnDelete(e) {
     .catch((err) => {
       console.log(err);
     })
-    .finally(() => setCartItemCount());
+    .finally(() => {
+      setCartItemCount(true);
+      // window.location.reload();
+    });
 }
 
 let currentItem = null;
@@ -221,12 +227,13 @@ async function handleAdjQty(e) {
   await fetch("/cart", options)
     .then((res) => res.json())
     .then((res) => {
-      displayItems(res);
+      displayItems(getCartItems());
     });
 
-  await setCartItemCount();
+  await setCartItemCount(true);
   adjQtyModal.close();
   currentItem = null;
+  // window.location.reload();
 }
 
 function handlePay(e) {
