@@ -9,7 +9,6 @@ const btnModalCancel = document.getElementById("btn-modal-cancel");
 const btnModalUpdate = document.getElementById("btn-modal-update");
 const cartCountElem = document.querySelector(".cart-bug span");
 const btnPay = document.querySelector("#btn-pay");
-// const shippingElem = document.querySelector(".shipping-info-wrapper");
 
 async function setCartItemCount() {
   const response = await fetch("/cart/item-count");
@@ -20,7 +19,8 @@ async function setCartItemCount() {
 
 setCartItemCount();
 let currentUserName = "";
-// let currentUserObj = null;
+let currentUserGlObj;
+let cartGlObj;
 
 async function getCurrentUserData(user) {
   const response = await fetch(`/user/${user}`);
@@ -55,7 +55,10 @@ async function getCartItems() {
         return res.json();
       }
     })
-    .then((res) => displayItems(res))
+    .then((res) => {
+      displayItems(res);
+      cartGlObj = res;
+    })
     .catch((err) => {
       console.log(err);
     });
@@ -143,13 +146,7 @@ function displayItems(data) {
             </tr>
           </tfoot>`;
         cartTable.innerHTML += html;
-        // shippingElem.innerHTML = `
-        //     <p>Ship To:</p>
-        //     <p>${currentUserObj[0].name}</p>
-        //     <p>${currentUserObj[0].email}</p>
-        //     <p>${currentUserObj[0].address_line_1}</p>
-        //     <p>${currentUserObj[0].address_line_2}</p>
-        // `;
+        currentUserGlObj = currentUserObj[0];
       }
 
       counter++;
@@ -232,7 +229,14 @@ async function handleAdjQty(e) {
   currentItem = null;
 }
 
+function handlePay(e) {
+  e.preventDefault();
+  console.log(currentUserGlObj);
+  console.log(cartGlObj);
+}
+
 btnModalUpdate.addEventListener("click", handleAdjQty);
 btnModalCancel.addEventListener("click", () => {
   adjQtyModal.close();
 });
+btnPay.addEventListener("click", handlePay);
