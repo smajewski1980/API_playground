@@ -54,14 +54,8 @@ app.post("/logout", (req, res) => {
 });
 
 app.get("/login/status", (req, res, next) => {
-  // req.sessionStore.get(req.sessionID, (err, session) => {
-  //   if (err) {
-  //     next(err);
-  //   }
-  //   console.log("data is moving around...");
-  // });
-  return req.session.user
-    ? res.status(200).send({ msg: req.session.user })
+  return req.session.userObj
+    ? res.status(200).send(req.session.userObj)
     : res.status(401).send({ msg: "not authenticated" });
 });
 

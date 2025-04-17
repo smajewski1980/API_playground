@@ -10,6 +10,7 @@ const loginPassVal = document.getElementById("password");
 const loginSpan = document.querySelector(".login-bug span");
 const btnLogout = document.getElementById("btn-logout");
 const btnNavCart = document.querySelector("#home-nav a:nth-child(3)");
+const avatar = document.querySelector("#avatar");
 
 const cartCountElem = document.querySelector(".cart-bug span");
 
@@ -25,9 +26,12 @@ setCartItemCount();
 let loginStatus = () => {
   fetch("/login/status").then(async (res) => {
     if (res.status === 200) {
-      const { msg } = await res.json();
-      console.log(msg);
-      loginSpan.innerText = msg;
+      const response = await res.json();
+      const { name, avatar_path } = await response;
+      // console.log(msg);
+      // console.log(await avatar_path);
+      avatar.src = avatar_path;
+      loginSpan.innerText = name;
       loginForm.style.display = "none";
       btnNavCart.style.pointerEvents = "initial";
       btnNavCart.style.opacity = "1";
@@ -36,6 +40,7 @@ let loginStatus = () => {
       btnCreateUser.style.pointerEvents = "none";
       btnCreateUser.style.opacity = ".5";
     } else {
+      avatar.src = "./assets/avatars/generic_user_avatar.png";
       loginSpan.innerText = "No one";
       btnNavCart.style.pointerEvents = "none";
       btnNavCart.style.opacity = ".5";
@@ -142,6 +147,7 @@ function handleLoginForm(e) {
 function handleLogout() {
   const logout = fetch("/logout", { method: "POST" });
   loginForm.style.display = "block";
+  avatar.src = "";
   loginStatus();
   setCartItemCount();
 }

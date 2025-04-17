@@ -10,6 +10,7 @@ const btnNavCart = document.querySelector("#products-page-nav a:last-child");
 const btnNavAddProd = document.querySelector(
   "#products-page-nav a:nth-child(2)"
 );
+const avatar = document.querySelector("#avatar");
 
 async function setCartItemCount() {
   const response = await fetch("/cart/item-count");
@@ -25,10 +26,12 @@ const loginSpan = document.querySelector(".login-bug span");
 let loginStatus = () => {
   fetch("/login/status").then(async (res) => {
     if (res.status === 200) {
-      const { msg } = await res.json();
-      console.log(msg);
-      loginSpan.innerText = msg;
+      const response = await res.json();
+      const { name, avatar_path } = await response;
+      loginSpan.innerText = name;
+      avatar.src = avatar_path;
     } else {
+      avatar.src = "./assets/avatars/generic_user_avatar.png";
       productsWrapper.style.setProperty("--overlay-display", "grid");
       btnNavCart.style.pointerEvents = "none";
       btnNavCart.style.opacity = ".5";

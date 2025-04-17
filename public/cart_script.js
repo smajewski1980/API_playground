@@ -9,6 +9,7 @@ const btnModalCancel = document.getElementById("btn-modal-cancel");
 const btnModalUpdate = document.getElementById("btn-modal-update");
 const cartCountElem = document.querySelector(".cart-bug span");
 const btnPay = document.querySelector("#btn-pay");
+const avatar = document.querySelector("#avatar");
 
 async function setCartItemCount(bool) {
   const response = await fetch("/cart/item-count");
@@ -34,11 +35,15 @@ async function getCurrentUserData(user) {
 let loginStatus = () => {
   fetch("/login/status").then(async (res) => {
     if (res.status === 200) {
-      const { msg } = await res.json();
+      const response = await res.json();
+      const { name, avatar_path } = await response;
       // console.log(msg);
-      loginSpan.innerText = msg;
-      currentUserName = msg;
-      getCurrentUserData(msg);
+      loginSpan.innerText = name;
+      avatar.src = avatar_path;
+      currentUserName = name;
+      getCurrentUserData(name);
+    } else {
+      avatar.src = "./assets/avatars/generic_user_avatar.png";
     }
   });
 };
@@ -51,6 +56,7 @@ async function getCartItems() {
       if (!res.ok) {
         cartMsg.innerHTML = "This is one empty cart, go add some shit!";
         cartTable.innerHTML = "";
+        btnPay.style.display = "none";
       } else {
         return res.json();
       }

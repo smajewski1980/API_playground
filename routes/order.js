@@ -33,7 +33,8 @@ router.get("/", (req, res, next) => {
             }
           );
         });
-        // console.log(cart);
+        // need to clear session cart data
+        req.session.cart = [];
         const resMsg = `order received, confirmation number: ${orderId}</br>You will receive an email shortly.`;
         res.status(200).send({
           msg: resMsg,
