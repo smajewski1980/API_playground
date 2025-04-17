@@ -11,6 +11,7 @@ const btnNavAddProd = document.querySelector(
   "#products-page-nav a:nth-child(2)"
 );
 const avatar = document.querySelector("#avatar");
+isUserAdmin = false;
 
 async function setCartItemCount() {
   const response = await fetch("/cart/item-count");
@@ -27,9 +28,10 @@ let loginStatus = () => {
   fetch("/login/status").then(async (res) => {
     if (res.status === 200) {
       const response = await res.json();
-      const { name, avatar_path } = await response;
+      const { name, avatar_path, is_admin } = await response;
       loginSpan.innerText = name;
       avatar.src = avatar_path;
+      isUserAdmin = is_admin;
     } else {
       avatar.src = "./assets/avatars/generic_user_avatar.png";
       productsWrapper.style.setProperty("--overlay-display", "grid");

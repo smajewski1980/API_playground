@@ -121,8 +121,13 @@ a {
   --overlay-display: none;
 }
 
+#add-prod-main {
+  --overlay-display: none;
+}
+
 .products-wrapper:after,
-#login-message:after {
+#login-message:after,
+#add-prod-main:after {
   content: "GO LOG IN";
   color: purple;
   font-size: 2.5rem;
@@ -133,6 +138,10 @@ a {
   display: var(--overlay-display);
   place-items: center;
   pointer-events: none;
+}
+
+#add-prod-main:after {
+  content: "NOT ADMIN";
 }
 
 .product-card {
