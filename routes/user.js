@@ -1,14 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const pg = require("pg");
-const { Pool } = pg;
-const pool = new Pool({
-  user: "postgres",
-  password: "postgres",
-  host: "localhost",
-  port: 5432,
-  database: "API_playground",
-});
+const pool = require("../db_connect");
 
 pool
   .connect()
@@ -16,19 +8,6 @@ pool
   .catch((err) => {
     console.error(err.message);
   });
-
-// router.get("/", (req, res) => {
-//   pool.query("select * from users order by id desc", (err, result) => {
-//     if (err) {
-//       console.error(err);
-//       return;
-//     } else {
-//       console.log(req.session);
-//       console.log(req.sessionID);
-//       res.send(result.rows);
-//     }
-//   });
-// });
 
 router.get("/:name", (req, res, next) => {
   const name = req.params.name;
