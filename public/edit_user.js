@@ -16,12 +16,16 @@ const editPhoneYes = document.querySelector("#edit-phone-yes");
 const editPhoneNo = document.querySelector("#edit-phone-no");
 const btnUpdateUser = document.querySelector("#btn-update-user");
 let editId = null;
+const avatar = document.querySelector("#avatar");
+const loginBug = document.querySelector(".login-bug");
+const loginSpan = document.querySelector(".login-bug span");
 
 const isLoggedIn = () => {
   fetch("/login/status").then(async (res) => {
     const response = await res.json();
-    const currentUser = response.msg;
-    console.log(response.msg);
+    const currentUser = response.name;
+    loginSpan.innerText = currentUser;
+    // console.log(currentUser);
     const isLoggedIn = res.status === 200 ? true : false;
 
     if (isLoggedIn) {
@@ -29,9 +33,11 @@ const isLoggedIn = () => {
         .then(async (res) => await res.json())
         .then((res) => {
           generateUserEdit(res[0]);
+          avatar.src = res[0].avatar_path;
         });
     } else {
       messageElem.style.setProperty("--overlay-display", "grid");
+      loginBug.style.display = "none";
     }
   });
 };
