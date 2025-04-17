@@ -14,6 +14,7 @@ let loginStatus = () => {
       if (!is_admin) {
         console.log("you aint admin bitch!");
         addProdMain.style.setProperty("--overlay-display", "grid");
+        addProductForm.style.display = "none";
       } else {
         console.log("you down...");
       }
