@@ -236,10 +236,11 @@ async function handlePay(e) {
   e.preventDefault();
   cartTable.style.display = "none";
   btnPay.style.display = "none";
+  cartCountElem.innerText = "0";
   const response = await fetch("/order");
   const data = await response.json();
   console.log(await data.msg);
-  cartMsg.innerText = await data.msg;
+  cartMsg.innerHTML = await data.msg;
 }
 
 btnModalUpdate.addEventListener("click", handleAdjQty);
