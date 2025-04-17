@@ -3,6 +3,7 @@ const app = express();
 const user = require("./routes/user");
 const product = require("./routes/product");
 const cart = require("./routes/cart");
+const order = require("./routes/order");
 const session = require("express-session");
 
 app.use(
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use("/user", user);
 app.use("/product", product);
 app.use("/cart", cart);
+app.use("/order", order);
 
 app.post("/login", async (req, res, next) => {
   const { body } = req;
@@ -35,6 +37,7 @@ app.post("/login", async (req, res, next) => {
     console.log("login successful!");
     req.session.visited = true;
     req.session.user = user[0].name;
+    req.session.userObj = user[0];
     res.status(200).send(JSON.stringify(user));
     return;
   } else {

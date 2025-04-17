@@ -22,8 +22,6 @@ async function setCartItemCount(bool) {
 
 setCartItemCount(false);
 let currentUserName = "";
-let currentUserGlObj;
-let cartGlObj;
 
 async function getCurrentUserData(user) {
   const response = await fetch(`/user/${user}`);
@@ -59,7 +57,6 @@ async function getCartItems() {
     })
     .then((res) => {
       displayItems(res);
-      cartGlObj = res;
     })
     .catch((err) => {
       console.log(err);
@@ -149,7 +146,6 @@ function displayItems(data) {
             </tr>
           </tfoot>`;
         cartTable.innerHTML += html;
-        currentUserGlObj = currentUserObj[0];
       }
 
       counter++;
@@ -236,10 +232,14 @@ async function handleAdjQty(e) {
   // window.location.reload();
 }
 
-function handlePay(e) {
+async function handlePay(e) {
   e.preventDefault();
-  console.log(currentUserGlObj);
-  console.log(cartGlObj);
+  cartTable.style.display = "none";
+  btnPay.style.display = "none";
+  const response = await fetch("/order");
+  const data = await response.json();
+  console.log(await data.msg);
+  cartMsg.innerText = await data.msg;
 }
 
 btnModalUpdate.addEventListener("click", handleAdjQty);
