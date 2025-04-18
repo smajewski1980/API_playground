@@ -28,7 +28,7 @@ router.get("/", (req, res, next) => {
                 next(error);
                 return;
               } else {
-                console.log(`inserted: ${result.rows[0].product_id}`);
+                // console.log(`inserted: ${result.rows[0].product_id}`);
               }
             }
           );
@@ -40,6 +40,41 @@ router.get("/", (req, res, next) => {
           msg: resMsg,
         });
       }
+    }
+  );
+});
+
+router.get("/:userID", (req, res, next) => {
+  const id = req.params.userID;
+  pool.query(
+    "select order_id from orders where user_id = $1 order by order_id desc",
+    [id],
+    (err, result) => {
+      if (err) {
+        const error = new Error(err);
+        next(err);
+        return;
+      }
+      // console.log(result.rows);
+      res.status(200).send(result.rows);
+    }
+  );
+});
+
+router.get("/user/:orderID", (req, res, next) => {
+  const id = req.params.orderID;
+  // not sure if we loop in frontend and keep hitting this endpoint
+  // or if we send an array of order_ids and get it all at once
+  pool.query(
+    // here we will need the complex query
+    "select * from orders where order_id = $1",
+    [id],
+    (err, result) => {
+      if (err) {
+        next(err);
+        return;
+      }
+      res.status(200).send(result.rows);
     }
   );
 });

@@ -29,7 +29,7 @@ input[type="email"] {
 }
 
 nav {
-  margin-bottom: 2rem;
+  margin-block: 2rem;
 }
 
 #products-page-nav,
@@ -272,4 +272,15 @@ tfoot tr:first-child td:nth-child(2) {
 
 .shipping-info-wrapper {
   height: 1.75rem;
+}
+
+.order-numbers-wrapper {
+  position: absolute;
+  left: 1rem;
+}
+
+.order {
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
 }
