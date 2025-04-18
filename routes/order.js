@@ -68,7 +68,7 @@ router.get("/user/:orderID", (req, res, next) => {
   pool.query(
     // here we will need the complex query
     "select * from orders where order_id = $1",
-    [id],
+    [parseInt(id)],
     (err, result) => {
       if (err) {
         next(err);

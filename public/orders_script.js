@@ -64,9 +64,18 @@ function handleLogout() {
   setCartItemCount();
 }
 
-document.addEventListener("click", (e) => {
+document.addEventListener("click", async (e) => {
   if (e.target.classList.contains("order")) {
-    console.log("you clicked an order number" + e.target.dataset.orderId);
+    const orderNum = e.target.dataset.orderId;
+    orderDetailsElem.innerHtml = "";
+    const response = await fetch(`/order/user/${orderNum}`);
+    const data = await response.json();
+    console.log(data);
+    orderDetailsElem.innerHTML = `
+      <p>Order Number: ${data[0].order_id}</p>
+      <p>User Id: ${data[0].user_id}</p>
+      <p>Order Completed: ${data[0].completed}</p>
+    `;
   }
 });
 
