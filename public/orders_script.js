@@ -24,17 +24,17 @@ async function getCurrentUserData(user) {
   const id = await data[0].id;
   const orders = await fetch(`/order/${id}`);
   const orderIds = await orders.json();
+  orderNumsElem.innerHTML += "<p>Click an order number:</p>";
   orderIds.forEach((id) => {
     orderNumsElem.innerHTML += `
       <p class="order" data-order-id=${id.order_id}>${id.order_id}</p>
     `;
   });
 
-  console.log(orderIds);
-  // currentUserId = await id;
-  // console.log(await data[0].id);
-  // return currentUserObj;
+  // console.log(orderIds);
 }
+
+let currentUserObj = null;
 
 let loginStatus = () => {
   fetch("/login/status").then(async (res) => {
@@ -45,6 +45,7 @@ let loginStatus = () => {
       loginSpan.innerText = name;
       avatar.src = avatar_path;
       currentUserName = name;
+      currentUserObj = await response;
       getCurrentUserData(name);
     } else {
       loginSpan.innerText = "No one";
@@ -70,17 +71,47 @@ document.addEventListener("click", async (e) => {
     const orderNum = e.target.dataset.orderId;
     const response = await fetch(`/order/user/${orderNum}`);
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     let counter = 1;
-    let HTML = `<h3>order id:${orderNum}</h3><table>
+    let cartSubtotal = 0;
+
+    let HTML = `<h3>order id: ${orderNum}</h3><table>
         <thead>
-          <tr><th>Item</th><th>Quantity</th></tr>
+          <tr><th>Quantity</th><th>Item</th><th>Unit Price</th><th>Item total</th></tr>
         </thead><tbody>`;
     data.forEach((obj) => {
+      cartSubtotal += obj.subtotal;
       HTML += `  
-      <tr><td>${obj.product_name}</td><td>${obj.quantity}</td></tr>
+      <tr><td>${obj.quantity}</td><td>${obj.name}</td><td>$${parseInt(
+        obj.price
+      ).toLocaleString()}</td><td>$${parseInt(
+        obj.subtotal
+      ).toLocaleString()}</td></tr>
       `;
       if (counter == data.length) {
+        const shipping = cartSubtotal * 0.2;
+        const tax = (cartSubtotal + shipping) * 0.1;
+        const cartTotal = cartSubtotal + shipping + tax;
+        HTML += `<tfoot>
+            <tr>
+              <td>Ship To:</td><td></td><th>cart subtotal</th><td>$${cartSubtotal.toLocaleString()}</td>
+            </tr>
+            <tr>
+              <td><div class="shipping-info-wrapper">
+               <p>${currentUserObj.name}</p>
+               <p>${currentUserObj.email}</p>
+               <p>${currentUserObj.phone}</p>
+               <p>${currentUserObj.address_line_1}</p>
+               <p>${currentUserObj.address_line_2}</p>
+              </div></td><td></td><th>shipping</th><td>$${shipping.toLocaleString()}</td>
+            </tr>
+            <tr>
+              <td></td><td></td><th>sales tax</th><td>$${tax.toLocaleString()}</td>
+            </tr>
+            <tr>
+              <td></td><td></td><th>TOTAL</th><td>$${cartTotal.toLocaleString()}</td>
+            </tr>
+          </tfoot>`;
         orderDetailsElem.innerHTML = HTML + "</tbody></table>";
       }
       counter++;

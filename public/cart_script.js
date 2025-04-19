@@ -126,7 +126,8 @@ function displayItems(data) {
       `;
       if (counter === cartLength) {
         const shipping = cartSubTotal * 0.2;
-        const total = shipping + cartSubTotal;
+        const total =
+          shipping + cartSubTotal + calcSalesTax(cartSubTotal, shipping);
         html += `
           <tfoot>
             <tr>

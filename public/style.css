@@ -272,6 +272,25 @@ tfoot tr:first-child td:nth-child(2) {
 
 .shipping-info-wrapper {
   height: 1.75rem;
+  padding-left: 3rem;
+}
+
+tfoot tr:first-child td:first-child,
+tfoot tr:first-child td:nth-child(2) {
+  padding-left: 3.125rem;
+}
+
+tfoot tr:last-child td,
+tfoot tr:last-child th {
+  padding-bottom: 2rem;
+}
+
+tfoot tr:first-child td {
+  padding-top: 1rem;
+}
+
+tfoot tr:first-child th {
+  padding-top: 1.5rem;
 }
 
 .order-numbers-wrapper {
