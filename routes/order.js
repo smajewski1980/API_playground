@@ -2,11 +2,24 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../db_connect");
 
+function getTimeStamp() {
+  const now = new Date();
+  const month = now.getMonth();
+  const day = now.getDate();
+  const year = now.getFullYear();
+  const hours = now.getHours();
+  const minutes1 = now.getMinutes() < 10 ? "0" : "";
+  const minutes2 = now.getMinutes();
+
+  const timeStamp = `${month}/${day}/${year} ${hours}:${minutes1}${minutes2}`;
+  return timeStamp;
+}
+
 router.get("/", (req, res, next) => {
   // insert user into order table and get back order number
   pool.query(
-    "insert into orders(user_id) values($1) returning *",
-    [req.session.userObj.id],
+    `insert into orders(user_id, order_date) values($1, $2) returning *`,
+    [req.session.userObj.id, getTimeStamp()],
     (err, result) => {
       if (err) {
         const error = new Error(err);
@@ -65,11 +78,7 @@ router.get("/user/:orderID", (req, res, next) => {
   console.log("getting an order for the client");
   const id = req.params.orderID;
   pool.query(
-    // "select * from orders where order_id = $1",
-    // here we will need the complex query
-
-    // "select	orders.order_id, orders.user_id, users.name as username, users.email,	users.address_line_1,	users.address_line_2,	users.phone, order_items.product_id, products.name as product_name,	products.price,	order_items.quantity,	products.img_url from orders join users on orders.user_id = users.id join order_items on orders.order_id = order_items.order_id join products on order_items.product_id = products.product_id where orders.order_id = $1",
-    "select order_id, name, quantity, price, subtotal from get_subtotal where order_id = $1",
+    "select order_id, order_date, name, quantity, price, subtotal from get_subtotal where order_id = $1",
     [parseInt(id)],
     (err, result) => {
       if (err) {

@@ -75,7 +75,7 @@ document.addEventListener("click", async (e) => {
     let counter = 1;
     let cartSubtotal = 0;
 
-    let HTML = `<h3>order id: ${orderNum}</h3><table>
+    let HTML = `<h3>order date: ${data[0].order_date}</br>order number: ${orderNum}</h3><table>
         <thead>
           <tr><th>Quantity</th><th>Item</th><th>Unit Price</th><th>Item total</th></tr>
         </thead><tbody>`;
@@ -90,7 +90,7 @@ document.addEventListener("click", async (e) => {
       `;
       if (counter == data.length) {
         const shipping = cartSubtotal * 0.2;
-        const tax = (cartSubtotal + shipping) * 0.1;
+        const tax = Math.round((cartSubtotal + shipping) * 0.1);
         const cartTotal = cartSubtotal + shipping + tax;
         HTML += `<tfoot>
             <tr>

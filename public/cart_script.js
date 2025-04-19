@@ -97,7 +97,7 @@ function displayItems(data) {
     }
 
     function calcSalesTax(subtotal, shipping) {
-      return (subtotal + shipping) * 0.1;
+      return Math.round((subtotal + shipping) * 0.1);
     }
 
     let cartSubTotal = 0;
