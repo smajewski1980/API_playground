@@ -62,18 +62,19 @@ router.get("/:userID", (req, res, next) => {
 });
 
 router.get("/user/:orderID", (req, res, next) => {
+  console.log("getting an order for the client");
   const id = req.params.orderID;
-  // not sure if we loop in frontend and keep hitting this endpoint
-  // or if we send an array of order_ids and get it all at once
   pool.query(
+    // "select * from orders where order_id = $1",
     // here we will need the complex query
-    "select * from orders where order_id = $1",
+    "select	orders.order_id, orders.user_id, users.name as username, users.email,	users.address_line_1,	users.address_line_2,	users.phone, order_items.product_id, products.name as product_name,	products.price,	order_items.quantity,	products.img_url from orders join users on orders.user_id = users.id join order_items on orders.order_id = order_items.order_id join products on order_items.product_id = products.product_id where orders.order_id = $1",
     [parseInt(id)],
     (err, result) => {
       if (err) {
         next(err);
         return;
       }
+      console.log(result.rows);
       res.status(200).send(result.rows);
     }
   );

@@ -66,16 +66,25 @@ function handleLogout() {
 
 document.addEventListener("click", async (e) => {
   if (e.target.classList.contains("order")) {
+    orderDetailsElem.innerHTML = "";
     const orderNum = e.target.dataset.orderId;
-    orderDetailsElem.innerHtml = "";
     const response = await fetch(`/order/user/${orderNum}`);
     const data = await response.json();
     console.log(data);
-    orderDetailsElem.innerHTML = `
-      <p>Order Number: ${data[0].order_id}</p>
-      <p>User Id: ${data[0].user_id}</p>
-      <p>Order Completed: ${data[0].completed}</p>
-    `;
+    let counter = 1;
+    let HTML = `<h3>order id:${orderNum}</h3><table>
+        <thead>
+          <tr><th>Item</th><th>Quantity</th></tr>
+        </thead><tbody>`;
+    data.forEach((obj) => {
+      HTML += `  
+      <tr><td>${obj.product_name}</td><td>${obj.quantity}</td></tr>
+      `;
+      if (counter == data.length) {
+        orderDetailsElem.innerHTML = HTML + "</tbody></table>";
+      }
+      counter++;
+    });
   }
 });
 
