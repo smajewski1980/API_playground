@@ -82,7 +82,7 @@ a {
 .login-bug {
   position: absolute;
   top: 1.75rem;
-  right: 3.25rem;
+  left: 2.25rem;
   min-height: 100px;
 }
 
@@ -100,7 +100,7 @@ a {
 #btn-logout {
   position: fixed;
   top: 7.5rem;
-  right: 2.185rem;
+  left: 1.5rem;
 }
 
 #edit-user-form {
@@ -145,7 +145,7 @@ a {
 }
 
 .product-card {
-  flex-basis: 350px;
+  flex-basis: 300px;
   padding: 1rem;
   outline: 1px solid black;
 }
@@ -158,7 +158,7 @@ img {
 .cart-bug {
   position: absolute;
   top: 1rem;
-  left: 1rem;
+  right: 1rem;
   /* outline: 2px solid lime; */
   width: 50px;
 }
@@ -189,7 +189,9 @@ table {
 }
 
 caption {
-  margin-bottom: 1rem;
+  margin-block: 0rem 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 th {
@@ -295,14 +297,20 @@ tfoot tr:first-child th {
 
 .order-numbers-wrapper {
   position: absolute;
+  top: 15rem;
   left: 1rem;
+  text-align: left;
+}
+
+.order-numbers-wrapper p:first-child {
+  margin-bottom: 0.5rem;
 }
 
 .order {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
   cursor: pointer;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .order-details {
