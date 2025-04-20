@@ -81,8 +81,8 @@ a {
 
 .login-bug {
   position: absolute;
-  top: 1rem;
-  right: 3rem;
+  top: 1.75rem;
+  right: 3.25rem;
   min-height: 100px;
 }
 
@@ -99,7 +99,7 @@ a {
 
 #btn-logout {
   position: fixed;
-  top: 7rem;
+  top: 7.5rem;
   right: 2.185rem;
 }
 

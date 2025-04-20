@@ -29,10 +29,11 @@ let loginStatus = () => {
     if (res.status === 200) {
       const response = await res.json();
       const { name, avatar_path, is_admin } = await response;
-      loginSpan.innerText = name;
+      loginSpan.innerHTML = `${name}</br>is logged in`;
       avatar.src = avatar_path;
       isUserAdmin = is_admin;
     } else {
+      loginSpan.innerHTML = "Logged out";
       avatar.src = "./assets/avatars/generic_user_avatar.png";
       productsWrapper.style.setProperty("--overlay-display", "grid");
       btnNavCart.style.pointerEvents = "none";

@@ -43,13 +43,13 @@ let loginStatus = () => {
       const response = await res.json();
       const { name, avatar_path } = await response;
       // console.log(msg);
-      loginSpan.innerText = name;
+      loginSpan.innerHTML = `${name}</br>is logged in.`;
       avatar.src = avatar_path;
       currentUserName = name;
       currentUserObj = await response;
       getCurrentUserData(name);
     } else {
-      loginSpan.innerText = "No one";
+      loginSpan.innerText = "Logged Out";
       avatar.src = "./assets/avatars/generic_user_avatar.png";
       btnLogout.style.pointerEvents = "none";
       btnLogout.style.opacity = ".5";
