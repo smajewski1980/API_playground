@@ -4,6 +4,7 @@ const cartCountElem = document.querySelector(".cart-bug span");
 const btnLogout = document.getElementById("btn-logout");
 const orderNumsElem = document.querySelector(".order-numbers-wrapper");
 const orderDetailsElem = document.querySelector(".order-details");
+const ordersWrapper = document.querySelector(".orders-wrapper");
 
 async function setCartItemCount(bool) {
   const response = await fetch("/cart/item-count");
@@ -63,6 +64,7 @@ function handleLogout() {
   avatar.src = "";
   loginStatus();
   setCartItemCount();
+  ordersWrapper.innerHTML = "<h2>Logged Out</h2>";
 }
 
 document.addEventListener("click", async (e) => {
