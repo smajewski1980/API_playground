@@ -9,31 +9,35 @@ const btnNavCart = document.querySelector("#products-page-nav a:last-child");
 const btnNavAddProd = document.querySelector(
   "#products-page-nav a:nth-child(2)"
 );
-isUserAdmin = false;
+// let isUserAdmin = null;
 
 setCartItemCount();
 
-let loginStatus = () => {
-  fetch("/login/status").then(async (res) => {
-    if (res.status === 200) {
-      const response = await res.json();
-      const { name, avatar_path, is_admin } = await response;
-      loginSpan.innerHTML = `${name}</br>is logged in`;
-      avatar.src = avatar_path;
-      isUserAdmin = is_admin;
-    } else {
-      loginSpan.innerHTML = "Logged out";
-      avatar.src = "./assets/avatars/generic_user_avatar.png";
-      productsWrapper.style.setProperty("--overlay-display", "grid");
-      btnNavCart.style.pointerEvents = "none";
-      btnNavCart.style.opacity = ".5";
-      btnNavAddProd.style.pointerEvents = "none";
-      btnNavAddProd.style.opacity = ".5";
-    }
-  });
-};
+// const loginStatus = () => {
+//   fetch("/login/status").then(async (res) => {
+//     if (res.status === 200) {
+//       const response = await res.json();
+//       const { name, avatar_path, is_admin } = await response;
 
-loginStatus();
+//       loginSpan.innerHTML = `${name}</br>is logged in`;
+//       avatar.src = avatar_path;
+//       isUserAdmin = is_admin;
+//     } else {
+//       loginSpan.innerHTML = "Logged out";
+//       avatar.src = "./assets/avatars/generic_user_avatar.png";
+//       // if no one is logged in, show the go log in overlay
+//       if (isUserAdmin === null && productsWrapper) {
+//         productsWrapper.style.setProperty("--overlay-display", "grid");
+//       }
+//       btnNavCart.style.pointerEvents = "none";
+//       btnNavCart.style.opacity = ".5";
+//       btnNavAddProd.style.pointerEvents = "none";
+//       btnNavAddProd.style.opacity = ".5";
+//     }
+//   });
+// };
+
+loginStatus([], [btnNavCart, btnNavAddProd]);
 
 const products = async () => {
   await fetch("/product")

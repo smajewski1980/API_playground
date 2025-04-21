@@ -12,40 +12,42 @@ const btnOrders = document.querySelector("nav a:nth-child(4)");
 
 setCartItemCount();
 
-let loginStatus = () => {
-  fetch("/login/status").then(async (res) => {
-    if (res.status === 200) {
-      const response = await res.json();
-      const { name, avatar_path } = await response;
-      // console.log(msg);
-      // console.log(await avatar_path);
-      avatar.src = avatar_path;
-      loginSpan.innerHTML = `${name}</br>is logged in.`;
-      loginForm.style.display = "none";
-      btnNavCart.style.pointerEvents = "initial";
-      btnNavCart.style.opacity = "1";
-      btnLogout.style.pointerEvents = "initial";
-      btnLogout.style.opacity = "1";
-      btnOrders.style.pointerEvents = "initial";
-      btnOrders.style.opacity = "1";
-      btnCreateUser.style.pointerEvents = "none";
-      btnCreateUser.style.opacity = ".5";
-    } else {
-      avatar.src = "./assets/avatars/generic_user_avatar.png";
-      loginSpan.innerText = "Logged Out";
-      btnNavCart.style.pointerEvents = "none";
-      btnNavCart.style.opacity = ".5";
-      btnLogout.style.pointerEvents = "none";
-      btnLogout.style.opacity = ".5";
-      btnOrders.style.pointerEvents = "none";
-      btnOrders.style.opacity = ".5";
-      btnCreateUser.style.pointerEvents = "initial";
-      btnCreateUser.style.opacity = "1";
-    }
-  });
-};
+// let loginStatus = () => {
+//   fetch("/login/status").then(async (res) => {
+//     if (res.status === 200) {
+//       const response = await res.json();
+//       const { name, avatar_path } = await response;
+//       avatar.src = avatar_path;
 
-loginStatus();
+//       loginSpan.innerHTML = `${name}</br>is logged in.`;
+//       loginForm.style.display = "none";
+//       btnNavCart.style.pointerEvents = "initial";
+//       btnNavCart.style.opacity = "1";
+//       btnLogout.style.pointerEvents = "initial";
+//       btnLogout.style.opacity = "1";
+//       btnOrders.style.pointerEvents = "initial";
+//       btnOrders.style.opacity = "1";
+//       // btnCreateUser.style.pointerEvents = "none";
+//       // btnCreateUser.style.opacity = ".5";
+//     } else {
+//       avatar.src = "./assets/avatars/generic_user_avatar.png";
+//       loginSpan.innerText = "Logged Out";
+//       btnNavCart.style.pointerEvents = "none";
+//       btnNavCart.style.opacity = ".5";
+//       btnLogout.style.pointerEvents = "none";
+//       btnLogout.style.opacity = ".5";
+//       btnOrders.style.pointerEvents = "none";
+//       btnOrders.style.opacity = ".5";
+//       // btnCreateUser.style.pointerEvents = "initial";
+//       // btnCreateUser.style.opacity = "1";
+//     }
+//   });
+// };
+
+loginStatus(
+  [btnNavCart, btnLogout, btnOrders],
+  [btnNavCart, btnLogout, btnOrders]
+);
 
 function handleSubmit(e) {
   e.preventDefault();
@@ -126,7 +128,10 @@ function handleLoginForm(e) {
         setTimeout(() => {
           messageDiv.innerHTML = "";
         }, 3000);
-        loginStatus();
+        loginStatus(
+          [btnNavCart, btnLogout, btnOrders],
+          [btnNavCart, btnLogout, btnOrders]
+        );
         loginUserVal.value = "";
         loginPassVal.value = "";
       }
@@ -141,7 +146,7 @@ function handleLogout() {
   const logout = fetch("/logout", { method: "POST" });
   loginForm.style.display = "block";
   avatar.src = "";
-  loginStatus();
+  loginStatus([], [btnNavCart, btnLogout, btnOrders]);
   setCartItemCount();
 }
 

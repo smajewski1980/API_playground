@@ -19,21 +19,21 @@ async function getCurrentUserData(user) {
   return currentUserObj;
 }
 
-let loginStatus = () => {
-  fetch("/login/status").then(async (res) => {
-    if (res.status === 200) {
-      const response = await res.json();
-      const { name, avatar_path } = await response;
-      // console.log(msg);
-      loginSpan.innerText = name;
-      avatar.src = avatar_path;
-      currentUserName = name;
-      getCurrentUserData(name);
-    } else {
-      avatar.src = "./assets/avatars/generic_user_avatar.png";
-    }
-  });
-};
+// let loginStatus = () => {
+//   fetch("/login/status").then(async (res) => {
+//     if (res.status === 200) {
+//       const response = await res.json();
+//       const { name, avatar_path } = await response;
+//       // console.log(msg);
+//       loginSpan.innerText = name;
+//       avatar.src = avatar_path;
+//       currentUserName = name;
+//       // getCurrentUserData(name);
+//     } else {
+//       avatar.src = "./assets/avatars/generic_user_avatar.png";
+//     }
+//   });
+// };
 
 loginStatus();
 
