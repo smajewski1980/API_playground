@@ -67,6 +67,24 @@ function handleLoginForm(e) {
   e.preventDefault();
   const name = loginUserVal.value;
   const password = loginPassVal.value;
+
+  if (name.length === 0 && password.length === 0) {
+    messageDiv.innerHTML = "Blank fields? Are you going to even try?";
+    return;
+  }
+
+  if (name.length === 0) {
+    messageDiv.innerHTML =
+      "How the hell are you going to sign in</br>without a username!";
+    return;
+  }
+
+  if (password.length === 0) {
+    messageDiv.innerHTML =
+      "Really, you think you are signing in</br>without a password?";
+    return;
+  }
+
   const body = {
     username: name,
     password: password,

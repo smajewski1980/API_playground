@@ -21,7 +21,7 @@ const isLoggedIn = () => {
   fetch("/login/status").then(async (res) => {
     const response = await res.json();
     const currentUser = response.name;
-    loginSpan.innerText = currentUser;
+    loginSpan.innerHTML = `${currentUser}</br>is logged in`;
     // console.log(currentUser);
     const isLoggedIn = res.status === 200 ? true : false;
 
