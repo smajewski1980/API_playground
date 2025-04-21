@@ -1,6 +1,5 @@
 const productsWrapper = document.querySelector(".products-wrapper");
 let productItems = [];
-const cartCountElem = document.querySelector(".cart-bug span");
 const prodAddedModal = document.querySelector("dialog");
 const btnModalContinue = document.getElementById("btn-modal-continue");
 const modalName = document.getElementById("modal-added-name");
@@ -10,19 +9,9 @@ const btnNavCart = document.querySelector("#products-page-nav a:last-child");
 const btnNavAddProd = document.querySelector(
   "#products-page-nav a:nth-child(2)"
 );
-const avatar = document.querySelector("#avatar");
 isUserAdmin = false;
 
-async function setCartItemCount() {
-  const response = await fetch("/cart/item-count");
-  const count = await response.json();
-  const cartItemCount = await count.itemCount;
-  cartCountElem.innerText = cartItemCount;
-}
-
 setCartItemCount();
-
-const loginSpan = document.querySelector(".login-bug span");
 
 let loginStatus = () => {
   fetch("/login/status").then(async (res) => {

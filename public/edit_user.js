@@ -16,9 +16,6 @@ const editPhoneYes = document.querySelector("#edit-phone-yes");
 const editPhoneNo = document.querySelector("#edit-phone-no");
 const btnUpdateUser = document.querySelector("#btn-update-user");
 let editId = null;
-const avatar = document.querySelector("#avatar");
-const loginBug = document.querySelector(".login-bug");
-const loginSpan = document.querySelector(".login-bug span");
 
 const isLoggedIn = () => {
   fetch("/login/status").then(async (res) => {

@@ -7,20 +7,8 @@ const loginForm = document.getElementById("login-form");
 const btnLoginForm = document.querySelector(".btn-login-form");
 const loginUserVal = document.getElementById("name");
 const loginPassVal = document.getElementById("password");
-const loginSpan = document.querySelector(".login-bug span");
-const btnLogout = document.getElementById("btn-logout");
 const btnNavCart = document.querySelector("#home-nav a:nth-child(3)");
-const avatar = document.querySelector("#avatar");
 const btnOrders = document.querySelector("nav a:nth-child(4)");
-
-const cartCountElem = document.querySelector(".cart-bug span");
-
-async function setCartItemCount() {
-  const response = await fetch("/cart/item-count");
-  const count = await response.json();
-  const cartItemCount = await count.itemCount;
-  cartCountElem.innerText = cartItemCount;
-}
 
 setCartItemCount();
 

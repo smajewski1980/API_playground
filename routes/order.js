@@ -85,7 +85,7 @@ router.get("/user/:orderID", (req, res, next) => {
         next(err);
         return;
       }
-      console.log(result.rows);
+      // console.log(result.rows);
       res.status(200).send(result.rows);
     }
   );

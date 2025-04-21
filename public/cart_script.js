@@ -1,27 +1,14 @@
 const cartTable = document.querySelector("table");
 const cartMsg = document.querySelector(".cart-msg");
-const loginSpan = document.querySelector(".login-bug span");
 const adjQtyModal = document.querySelector("dialog");
 const modalImg = document.getElementById("modal-img");
 const modalName = document.getElementById("modal-update-name");
 const modalQty = document.getElementById("modal-update-qty");
 const btnModalCancel = document.getElementById("btn-modal-cancel");
 const btnModalUpdate = document.getElementById("btn-modal-update");
-const cartCountElem = document.querySelector(".cart-bug span");
 const btnPay = document.querySelector("#btn-pay");
-const avatar = document.querySelector("#avatar");
 
-async function setCartItemCount(bool) {
-  const response = await fetch("/cart/item-count");
-  const count = await response.json();
-  const cartItemCount = await count.itemCount;
-  cartCountElem.innerText = cartItemCount;
-  if (bool) {
-    window.location.reload();
-  }
-}
-
-setCartItemCount(false);
+setCartItemCount();
 let currentUserName = "";
 
 async function getCurrentUserData(user) {
@@ -179,8 +166,7 @@ function handleBtnDelete(e) {
       console.log(err);
     })
     .finally(() => {
-      setCartItemCount(true);
-      // window.location.reload();
+      window.location.reload();
     });
 }
 
@@ -214,7 +200,6 @@ async function handleAdjQty(e) {
   if (modalQty.value < 1) {
     modalQty.value = 1;
   }
-  // let prodId = e.target.dataset.prodId;
   const options = {
     method: "PUT",
     headers: {
@@ -233,10 +218,9 @@ async function handleAdjQty(e) {
       displayItems(getCartItems());
     });
 
-  await setCartItemCount(true);
+  window.location.reload();
   adjQtyModal.close();
   currentItem = null;
-  // window.location.reload();
 }
 
 async function handlePay(e) {

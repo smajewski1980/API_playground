@@ -12,6 +12,7 @@ body {
   place-content: center;
   text-align: center;
   justify-items: center;
+  padding-bottom: 5rem;
 }
 
 input:not(input[type="radio"]) {
@@ -82,7 +83,7 @@ a {
 .login-bug {
   position: absolute;
   top: 1.75rem;
-  left: 2.25rem;
+  left: 2.75rem;
   min-height: 100px;
 }
 
@@ -98,9 +99,9 @@ a {
 }
 
 #btn-logout {
-  position: fixed;
+  position: absolute;
   top: 7.5rem;
-  left: 1.5rem;
+  left: 1.85rem;
 }
 
 #edit-user-form {
