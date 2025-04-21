@@ -74,8 +74,7 @@ function displayItems(data) {
     const cartLength = data.length;
     let counter = 1;
 
-    cartTable.innerHTML =
-      "<caption>Your Cart</caption><thead><th></th><th>Product Name</th><th>Price</th><th>Quantity</th><th></th><th>Product Subtotal</th>";
+    cartTable.innerHTML = `<caption>${currentUserName}'s Cart</caption><thead><th></th><th>Product Name</th><th>Price</th><th>Quantity</th><th></th><th>Product Subtotal</th>`;
 
     let html = "";
 
