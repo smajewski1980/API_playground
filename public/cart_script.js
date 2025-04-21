@@ -11,10 +11,17 @@ const btnPay = document.querySelector("#btn-pay");
 setCartItemCount();
 let currentUserName = "";
 
+async function setCurrentUserName() {
+  const response = await fetch("/login/status");
+  const data = await response.json();
+  currentUserName = data.name;
+}
+setCurrentUserName();
+
 async function getCurrentUserData(user) {
   const response = await fetch(`/user/${user}`);
   const data = await response.json();
-  currentUserObj = await data;
+  const currentUserObj = await data;
   // console.log(await currentUserObj);
   return currentUserObj;
 }
@@ -35,7 +42,7 @@ async function getCurrentUserData(user) {
 //   });
 // };
 
-loginStatus();
+loginStatus([], []);
 
 async function getCartItems() {
   const response = await fetch("/cart")
@@ -73,9 +80,6 @@ function displayItems(data) {
   } else {
     const cartLength = data.length;
     let counter = 1;
-
-    cartTable.innerHTML = `<caption>${currentUserName}'s Cart</caption><thead><th></th><th>Product Name</th><th>Price</th><th>Quantity</th><th></th><th>Product Subtotal</th>`;
-
     let html = "";
 
     function getSub(price, qty) {
@@ -138,6 +142,7 @@ function displayItems(data) {
               <td></td><td></td><td></td><td></td><th>TOTAL</th><td>$${total.toLocaleString()}</td>
             </tr>
           </tfoot>`;
+        cartTable.innerHTML = `<caption>${currentUserName}'s Cart</caption><thead><th></th><th>Product Name</th><th>Price</th><th>Quantity</th><th></th><th>Product Subtotal</th>`;
         cartTable.innerHTML += html;
       }
 

@@ -46,6 +46,7 @@ router.get("/:id", (req, res, next) => {
 router.post("/", (req, res, next) => {
   const { product_id, name, price, quantity } = req.body;
   const newItem = {
+    //  need to get the username returned through this i think
     product_id: product_id,
     name: name,
     price: price,

@@ -35,6 +35,12 @@ const loginStatus = (goodStatus, badStatus) => {
         btnCreateUser.style.pointerEvents = "none";
         btnCreateUser.style.opacity = ".5";
       }
+      if (typeof addProdMain === "object") {
+        if (!is_admin) {
+          addProdMain.style.setProperty("--overlay-display", "grid");
+          addProductForm.style.display = "none";
+        }
+      }
     } else {
       loginSpan.innerHTML = "Logged out";
       avatar.src = "./assets/avatars/generic_user_avatar.png";
