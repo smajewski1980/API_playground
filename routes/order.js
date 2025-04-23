@@ -4,14 +4,11 @@ const pool = require("../db_connect");
 
 function getTimeStamp() {
   const now = new Date();
-  const month = now.getMonth();
+  const month = now.getMonth() + 1;
   const day = now.getDate();
   const year = now.getFullYear();
-  const hours = now.getHours();
-  const minutes1 = now.getMinutes() < 10 ? "0" : "";
-  const minutes2 = now.getMinutes();
 
-  const timeStamp = `${month}/${day}/${year} ${hours}:${minutes1}${minutes2}`;
+  const timeStamp = `${month}/${day}/${year}`;
   return timeStamp;
 }
 
