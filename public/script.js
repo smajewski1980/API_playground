@@ -109,6 +109,7 @@ function handleLoginForm(e) {
     })
     .then((res) => {
       if (res[0].name) {
+        fetch("/site_counter");
         loginForm.style.display = "none";
         messageDiv.innerHTML = `${res[0].name} is now logged in.`;
         setTimeout(() => {
