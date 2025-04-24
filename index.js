@@ -6,6 +6,7 @@ const cart = require("./routes/cart");
 const order = require("./routes/order");
 const session = require("express-session");
 const siteCounter = require("./routes/site_counter");
+const dashboard = require("./routes/dashboard");
 
 app.use(
   session({
@@ -24,6 +25,7 @@ app.use("/product", product);
 app.use("/cart", cart);
 app.use("/order", order);
 app.use("/site_counter", siteCounter);
+app.use("/dashboard", dashboard);
 
 app.post("/login", async (req, res, next) => {
   const { body } = req;
