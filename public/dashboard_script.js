@@ -5,7 +5,7 @@ const lastWeekSalesSpan = document.querySelector(
 );
 const totalOrdersSpan = document.querySelector(".total-orders-wrapper span");
 const avgOrderSpan = document.querySelector(".avg-order-price-wrapper span");
-const ordersSpan = document.querySelector(".orders-wrapper span");
+const ordersSpan = document.querySelector(".orders-wrapper");
 
 const date = new Date();
 let hours = date.getHours();
@@ -25,37 +25,39 @@ setInterval(() => {
     date.getSeconds() +
     " " +
     ampm;
-  dateWrapper.innerHTML = `<div class='date'>${date.toDateString()}</div><div class='time'>${time}</div>`;
+  dateWrapper.innerHTML = `<div class='date'><h1>Dashboard</h1>${date.toDateString()}</div><div class='time'>${time}</div>`;
 }, 1000);
 
+function addMoneyCommas(str) {
+  return parseInt(str).toLocaleString();
+}
+
 async function setTotalSalesUI(data) {
-  totalSalesSpan.innerText = `$${parseInt(data).toLocaleString()}`;
+  totalSalesSpan.innerText = `$${addMoneyCommas(data)}`;
 }
 
 async function setTotalOrderQtyUI(data) {
-  totalOrdersSpan.innerText = data;
+  totalOrdersSpan.innerText = addMoneyCommas(data);
 }
 
 async function setSalesLastSevenDays(data) {
   let outputData = "";
-  data.forEach((obj) => {
-    outputData += `<p>${obj.order_date}: $${parseInt(
-      obj.daily_total
-    ).toLocaleString()}</p>`;
-  });
+  // data.forEach((obj) => {
+  //   outputData += `<p>${obj.order_date}: $${parseInt(
+  //     obj.daily_total
+  //   ).toLocaleString()}</p>`;
+  // });
   lastWeekSalesSpan.innerHTML += outputData;
 }
 
 async function setAvgOrder(data) {
-  avgOrderSpan.innerText = data;
+  avgOrderSpan.innerText = `$${addMoneyCommas(data)}`;
 }
 
 async function setAllOrders(data) {
   let html = `
       <table>
-        <thead>
-          <tr><th>order id</th><th>user id</th><th>user name</th><th>user email</th><th>order date</th><th>total item qty</th><th>subtotal</th><th>shipping</th><th>tax</th><th>order total</th></tr>
-        </thead>
+
         <tbody>
     `;
   data.forEach((obj) => {

@@ -337,16 +337,9 @@ tfoot tr:first-child th {
   align-items: center;
   grid-template-areas:
     "date total-sales total-qty avg-ord last7 last7 "
-    "date total-sales total-qty avg-ord last7 last7 "
-    "orders orders orders orders orders orders"
-    "orders orders orders orders orders orders"
+    "header header header header header header"
     "orders orders orders orders orders orders";
-}
-
-.dash-body h1 {
-  position: absolute;
-  top: 0.75rem;
-  left: 2rem;
+  grid-template-rows: 150px 1fr;
 }
 
 .date {
@@ -368,6 +361,14 @@ tfoot tr:first-child th {
   color: rgb(202, 201, 201);
 }
 
+.date-wrapper h1 {
+  margin-bottom: 0.5rem;
+}
+
+.last-week-sales-wrapper p {
+  margin-top: 1rem;
+}
+
 .date-wrapper {
   grid-area: date;
 }
@@ -376,6 +377,7 @@ tfoot tr:first-child th {
 }
 .last-week-sales-wrapper {
   grid-area: last7;
+  height: 150px;
 }
 .total-orders-wrapper {
   grid-area: total-qty;
@@ -383,8 +385,33 @@ tfoot tr:first-child th {
 .avg-order-price-wrapper {
   grid-area: avg-ord;
 }
+.header {
+  grid-area: header;
+  width: 100vw;
+}
+.header table {
+  width: 100%;
+}
 .orders-wrapper {
   grid-area: orders;
-  height: 50vh;
-  overflow-y: scroll;
+  height: calc(100vh - 261px);
+  width: 100vw;
+  overflow-y: auto;
+}
+
+/* .orders-wrapper tr td:nth-child(n + 6):nth-child(-n + 10) {
+  width: 75px;
+} */
+
+.orders-wrapper table {
+  width: 100%;
+}
+
+.orders-wrapper td {
+  padding: 0.3rem 0;
+}
+
+.orders-wrapper caption {
+  margin: 0;
+  margin-bottom: 1rem;
 }

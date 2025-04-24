@@ -8,14 +8,33 @@
     <script src="./dashboard_script.js" defer></script>
   </head>
   <body class="dash-body">
-    <h1>Dashboard</h1>
+    
     <main id="dashboard-main">
       <div class="date-wrapper"></div>
       <div class="total-sales-wrapper">Total Sales:</br><span></span></div>
-      <div class="last-week-sales-wrapper">Last 7 Days Sales:</br><span></span></div>
+      <div class="last-week-sales-wrapper"><p>Last 7 Days Sales:</p></br><span></span></div>
       <div class="total-orders-wrapper">Total Qty. Of Orders:</br><span></span></div>
       <div class="avg-order-price-wrapper">Average Order Total:</br><span></span></div>
-      <div class="orders-wrapper">Orders:</br><span></span></div>
+      <div class="header">
+        <table>
+          <caption>Orders:</caption>
+          <thead>
+            <tr>
+              <th>order id</th>
+              <th>user id</th>
+              <th>user name</th>
+              <th>user email</th>
+              <th>order date</th>
+              <th>total item qty</th>
+              <th>subtotal</th>
+              <th>shipping</th>
+              <th>tax</th>
+              <th>order total</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <div class="orders-wrapper"></div>
 
     </main>
   </body>
