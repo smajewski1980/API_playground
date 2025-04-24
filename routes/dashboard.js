@@ -4,8 +4,7 @@ const pool = require("../db_connect");
 
 router.get("/", (req, res, next) => {
   const dashInfo = {};
-  console.log("its all good");
-  dashInfo.msg = "test";
+  // dashInfo.msg = "test";
   Promise.all([
     pool.query("select round as avg_total from avg_order_total"),
     (err, result) => {
