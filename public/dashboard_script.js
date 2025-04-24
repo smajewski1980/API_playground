@@ -1,8 +1,8 @@
 const dateWrapper = document.querySelector(".date-wrapper");
 const totalSalesSpan = document.querySelector(".total-sales-wrapper span");
-const lastWeekSalesSpan = document.querySelector(
-  ".last-week-sales-wrapper span"
-);
+// const lastWeekSalesSpan = document.querySelector(
+//   ".last-week-sales-wrapper span"
+// );
 const totalOrdersSpan = document.querySelector(".total-orders-wrapper span");
 const avgOrderSpan = document.querySelector(".avg-order-price-wrapper span");
 const ordersSpan = document.querySelector(".orders-wrapper");
@@ -40,15 +40,15 @@ async function setTotalOrderQtyUI(data) {
   totalOrdersSpan.innerText = addMoneyCommas(data);
 }
 
-async function setSalesLastSevenDays(data) {
-  let outputData = "";
-  // data.forEach((obj) => {
-  //   outputData += `<p>${obj.order_date}: $${parseInt(
-  //     obj.daily_total
-  //   ).toLocaleString()}</p>`;
-  // });
-  lastWeekSalesSpan.innerHTML += outputData;
-}
+// async function setSalesLastSevenDays(data) {
+//   let outputData = "";
+//   data.forEach((obj) => {
+//     outputData += `<p>${obj.order_date}: $${parseInt(
+//       obj.daily_total
+//     ).toLocaleString()}</p>`;
+//   });
+//   lastWeekSalesSpan.innerHTML += outputData;
+// }
 
 async function setAvgOrder(data) {
   avgOrderSpan.innerText = `$${addMoneyCommas(data)}`;
@@ -83,7 +83,7 @@ async function loadData() {
   const data = await response.json();
   setTotalSalesUI(data.totalSales);
   setTotalOrderQtyUI(data.totalNumOrders);
-  setSalesLastSevenDays(data.lastSevenDays);
+  // setSalesLastSevenDays(data.lastSevenDays);
   setAvgOrder(data.avgOrder);
   setAllOrders(data.allOrdersInfo);
   // console.log(data.lastSevenDays);
