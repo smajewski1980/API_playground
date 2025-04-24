@@ -62,7 +62,15 @@ async function setAllOrders(data) {
     `;
   data.forEach((obj) => {
     html += `
-      <tr><td>${obj.order_id}</td><td>${obj.user_id}</td><td>${obj.name}</td><td>${obj.email}</td><td>${obj.order_date}</td><td>${obj.total_item_qty}</td><td>${obj.subtotal}</td><td>${obj.shipping}</td><td>${obj.tax}</td><td>${obj.order_total}</td></tr>
+      <tr><td>${obj.order_id}</td><td>${obj.user_id}</td><td>${
+      obj.name
+    }</td><td>${obj.email}</td><td>${obj.order_date}</td><td>${
+      obj.total_item_qty
+    }</td><td>$${addMoneyCommas(obj.subtotal)}</td><td>$${addMoneyCommas(
+      obj.shipping
+    )}</td><td>$${addMoneyCommas(obj.tax)}</td><td>$${addMoneyCommas(
+      obj.order_total
+    )}</td></tr>
     `;
   });
 
