@@ -22,6 +22,22 @@ const barsArray = [
   barTwo,
   barOne,
 ];
+const barLabelOne = document.querySelector(".bar-label-1");
+const barLabelTwo = document.querySelector(".bar-label-2");
+const barLabelThree = document.querySelector(".bar-label-3");
+const barLabelFour = document.querySelector(".bar-label-4");
+const barLabelFive = document.querySelector(".bar-label-5");
+const barLabelSix = document.querySelector(".bar-label-6");
+const barLabelSeven = document.querySelector(".bar-label-7");
+const barLabelsArray = [
+  barLabelSeven,
+  barLabelSix,
+  barLabelFive,
+  barLabelFour,
+  barLabelThree,
+  barLabelTwo,
+  barLabelOne,
+];
 
 const date = new Date();
 let hours = date.getHours();
@@ -68,10 +84,12 @@ async function setSalesLastSevenDays(data) {
       : 0;
   });
   const heightValsNewestFirst = [];
+  const datesNewestFirst = [];
   sortedDataNewestFirst.forEach((item) => {
     const total = item.daily_total;
     const scaled = total * scaleFactor;
     heightValsNewestFirst.push(Math.round(scaled));
+    datesNewestFirst.push(item.order_date);
   });
 
   for (let i = 0; i < barsArray.length; i++) {
@@ -79,8 +97,15 @@ async function setSalesLastSevenDays(data) {
     barsArray[i].style.height = heightVal;
   }
 
-  console.log(sortedDataNewestFirst);
-  console.log(heightValsNewestFirst);
+  const truncatedDatesArray = datesNewestFirst.map((date) => {
+    return date.slice(0, -5);
+  });
+
+  for (let i = 0; i < barLabelsArray.length; i++) {
+    barLabelsArray[i].innerText = truncatedDatesArray[i];
+  }
+
+  // console.log(truncatedDatesArray);
 }
 
 async function setAvgOrder(data) {
