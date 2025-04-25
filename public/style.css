@@ -418,7 +418,39 @@ tfoot tr:first-child th {
 
 /* bar graph */
 .last-week-sales-wrapper {
+  --highest-day-text: "";
+  --lowest-day-text: "";
+  --highest-color: ;
+  --lowest-color: ;
   width: 65%;
+  position: relative;
+}
+
+.last-week-sales-wrapper:before {
+  /* this will be the highest day */
+  content: var(--highest-day-text);
+  position: absolute;
+  background-color: var(--highest-color);
+  color: black;
+  width: 50px;
+  height: 50px;
+  top: 2rem;
+  right: 105%;
+  line-height: 1.5;
+  border-radius: 5px;
+}
+.last-week-sales-wrapper:after {
+  /* this will be the lowest day */
+  content: var(--lowest-day-text);
+  position: absolute;
+  background-color: var(--lowest-color);
+  color: black;
+  width: 50px;
+  height: 50px;
+  bottom: 0.75rem;
+  right: 105%;
+  line-height: 1.4;
+  border-radius: 5px;
 }
 
 .last-week-sales-wrapper p {
@@ -452,29 +484,29 @@ legend {
 
 .bar-chart-1 {
   /* height: 30%; */
-  background-color: rgb(173, 0, 0);
+  background-color: #fd7f6f;
 }
 .bar-chart-2 {
   /* height: 60%; */
-  background-color: rgb(184, 119, 0);
+  background-color: #ffb55a;
 }
 .bar-chart-3 {
   /* height: 40%; */
-  background-color: rgb(190, 190, 1);
+  background-color: #ffee65;
 }
 .bar-chart-4 {
   /* height: 100%; */
-  background-color: green;
+  background-color: #b2e061;
 }
 .bar-chart-5 {
   /* height: 50%; */
-  background-color: rgb(54, 54, 255);
+  background-color: #7eb0d5;
 }
 .bar-chart-6 {
   /* height: 65%; */
-  background-color: rgb(133, 0, 228);
+  background-color: #bd7ebe;
 }
 .bar-chart-7 {
   /* height: 45%; */
-  background-color: rgb(179, 97, 179);
+  background-color: #fdcce5;
 }

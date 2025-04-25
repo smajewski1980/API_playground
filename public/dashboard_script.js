@@ -38,6 +38,16 @@ const barLabelsArray = [
   barLabelTwo,
   barLabelOne,
 ];
+const chartColors = [
+  "#fdcce5",
+  "#bd7ebe",
+  "#7eb0d5",
+  "#b2e061",
+  "#ffee65",
+  "#ffb55a",
+  "#fd7f6f",
+];
+const chartWrapper = document.querySelector(".last-week-sales-wrapper");
 
 const date = new Date();
 let hours = date.getHours();
@@ -73,16 +83,21 @@ async function setTotalOrderQtyUI(data) {
 }
 
 async function setSalesLastSevenDays(data) {
+  // calculate scale factor
   const largestTotal = parseInt(data[0].daily_total);
   const availHeight = 130;
   const scaleFactor = availHeight / largestTotal;
-  const sortedDataNewestFirst = data.sort((a, b) => {
+
+  // put the array in date order
+  const sortedDataNewestFirst = data.toSorted((a, b) => {
     return a.order_date < b.order_date
       ? 1
       : b.order_date < a.order_date
       ? -1
       : 0;
   });
+
+  // get the vals for the ui into separate arrays
   const heightValsNewestFirst = [];
   const datesNewestFirst = [];
   sortedDataNewestFirst.forEach((item) => {
@@ -92,20 +107,48 @@ async function setSalesLastSevenDays(data) {
     datesNewestFirst.push(item.order_date);
   });
 
+  // set bar heights
   for (let i = 0; i < barsArray.length; i++) {
     const heightVal = `${heightValsNewestFirst[i]}px`;
     barsArray[i].style.height = heightVal;
   }
 
+  // cut off the years for the chart labels
   const truncatedDatesArray = datesNewestFirst.map((date) => {
     return date.slice(0, -5);
   });
 
+  // set the chart label text
   for (let i = 0; i < barLabelsArray.length; i++) {
     barLabelsArray[i].innerText = truncatedDatesArray[i];
   }
 
-  // console.log(truncatedDatesArray);
+  // make high and low annotation
+  const largestObj = data[0];
+  const smallestObj = data[6];
+  const largestDate = data[0].order_date.slice(0, -5);
+  const smallestDate = data[6].order_date.slice(0, -5);
+  const highestTextStr = `high ${largestDate}`;
+  const lowestTextStr = `low ${smallestDate}`;
+  const lgClrIdx = sortedDataNewestFirst.findIndex((obj) => {
+    return obj.daily_total === largestObj.daily_total;
+  });
+  const smClrIdx = sortedDataNewestFirst.findIndex((obj) => {
+    return obj.daily_total === smallestObj.daily_total;
+  });
+  const largestClr = chartColors[lgClrIdx];
+  const smallestClr = chartColors[smClrIdx];
+
+  chartWrapper.style.setProperty(
+    "--highest-day-text",
+    JSON.stringify(highestTextStr)
+  );
+  chartWrapper.style.setProperty(
+    "--lowest-day-text",
+    JSON.stringify(lowestTextStr)
+  );
+  chartWrapper.style.setProperty("--highest-color", largestClr);
+  chartWrapper.style.setProperty("--lowest-color", smallestClr);
 }
 
 async function setAvgOrder(data) {
