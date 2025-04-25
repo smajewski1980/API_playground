@@ -451,30 +451,30 @@ legend {
 }
 
 .bar-chart-1 {
-  height: 30%;
+  /* height: 30%; */
   background-color: rgb(173, 0, 0);
 }
 .bar-chart-2 {
-  height: 60%;
+  /* height: 60%; */
   background-color: rgb(184, 119, 0);
 }
 .bar-chart-3 {
-  height: 40%;
+  /* height: 40%; */
   background-color: rgb(190, 190, 1);
 }
 .bar-chart-4 {
-  height: 100%;
+  /* height: 100%; */
   background-color: green;
 }
 .bar-chart-5 {
-  height: 50%;
+  /* height: 50%; */
   background-color: rgb(54, 54, 255);
 }
 .bar-chart-6 {
-  height: 65%;
+  /* height: 65%; */
   background-color: rgb(133, 0, 228);
 }
 .bar-chart-7 {
-  height: 45%;
+  /* height: 45%; */
   background-color: rgb(179, 97, 179);
 }

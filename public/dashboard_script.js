@@ -6,6 +6,22 @@ const totalSalesSpan = document.querySelector(".total-sales-wrapper span");
 const totalOrdersSpan = document.querySelector(".total-orders-wrapper span");
 const avgOrderSpan = document.querySelector(".avg-order-price-wrapper span");
 const ordersSpan = document.querySelector(".orders-wrapper");
+const barOne = document.querySelector(".bar-chart-1");
+const barTwo = document.querySelector(".bar-chart-2");
+const barThree = document.querySelector(".bar-chart-3");
+const barFour = document.querySelector(".bar-chart-4");
+const barFive = document.querySelector(".bar-chart-5");
+const barSix = document.querySelector(".bar-chart-6");
+const barSeven = document.querySelector(".bar-chart-7");
+const barsArray = [
+  barSeven,
+  barSix,
+  barFive,
+  barFour,
+  barThree,
+  barTwo,
+  barOne,
+];
 
 const date = new Date();
 let hours = date.getHours();
@@ -40,15 +56,32 @@ async function setTotalOrderQtyUI(data) {
   totalOrdersSpan.innerText = addMoneyCommas(data);
 }
 
-// async function setSalesLastSevenDays(data) {
-//   let outputData = "";
-//   data.forEach((obj) => {
-//     outputData += `<p>${obj.order_date}: $${parseInt(
-//       obj.daily_total
-//     ).toLocaleString()}</p>`;
-//   });
-//   lastWeekSalesSpan.innerHTML += outputData;
-// }
+async function setSalesLastSevenDays(data) {
+  const largestTotal = parseInt(data[0].daily_total);
+  const availHeight = 130;
+  const scaleFactor = availHeight / largestTotal;
+  const sortedDataNewestFirst = data.sort((a, b) => {
+    return a.order_date < b.order_date
+      ? 1
+      : b.order_date < a.order_date
+      ? -1
+      : 0;
+  });
+  const heightValsNewestFirst = [];
+  sortedDataNewestFirst.forEach((item) => {
+    const total = item.daily_total;
+    const scaled = total * scaleFactor;
+    heightValsNewestFirst.push(Math.round(scaled));
+  });
+
+  for (let i = 0; i < barsArray.length; i++) {
+    const heightVal = `${heightValsNewestFirst[i]}px`;
+    barsArray[i].style.height = heightVal;
+  }
+
+  console.log(sortedDataNewestFirst);
+  console.log(heightValsNewestFirst);
+}
 
 async function setAvgOrder(data) {
   avgOrderSpan.innerText = `$${addMoneyCommas(data)}`;
@@ -83,7 +116,7 @@ async function loadData() {
   const data = await response.json();
   setTotalSalesUI(data.totalSales);
   setTotalOrderQtyUI(data.totalNumOrders);
-  // setSalesLastSevenDays(data.lastSevenDays);
+  setSalesLastSevenDays(data.lastSevenDays);
   setAvgOrder(data.avgOrder);
   setAllOrders(data.allOrdersInfo);
   // console.log(data.lastSevenDays);

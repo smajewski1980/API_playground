@@ -16,7 +16,7 @@ router.get("/", (req, res, next) => {
       if (err) next(err);
       return result.rows;
     },
-    pool.query("select * from last7_daily_totals"),
+    pool.query("select * from last7_daily_totals order by daily_total desc"),
     (err, result) => {
       if (err) next(err);
       return result.rows;
