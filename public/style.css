@@ -13,9 +13,13 @@ body {
 body:not(.dash-body) {
   text-align: center;
   padding-bottom: 5rem;
-  display: grid;
+
   place-content: center;
   justify-items: center;
+}
+
+body:not(.orders-body) {
+  display: grid;
 }
 
 input:not(input[type="radio"]) {
@@ -319,11 +323,13 @@ tfoot tr:first-child th {
   margin-bottom: 1rem;
 }
 
-.order-details {
+#order-details {
   margin-top: 5rem;
   font-size: 1.25rem;
   display: grid;
   gap: 0.5rem;
+  width: 65%;
+  margin-inline: auto;
 }
 
 /* .dash-body * {
@@ -392,11 +398,14 @@ tfoot tr:first-child th {
 .header table {
   width: 100%;
 }
-.orders-wrapper {
+.dash-orders-wrapper {
   grid-area: orders;
   height: calc(100vh - 261px);
   width: 100vw;
   overflow-y: auto;
+}
+.dash-orders-wrapper table {
+  width: 100%;
 }
 
 /* .orders-wrapper tr td:nth-child(n + 6):nth-child(-n + 10) {

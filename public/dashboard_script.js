@@ -5,7 +5,7 @@ const totalSalesSpan = document.querySelector(".total-sales-wrapper span");
 // );
 const totalOrdersSpan = document.querySelector(".total-orders-wrapper span");
 const avgOrderSpan = document.querySelector(".avg-order-price-wrapper span");
-const ordersSpan = document.querySelector(".orders-wrapper");
+const ordersSpan = document.querySelector(".dash-orders-wrapper");
 const barOne = document.querySelector(".bar-chart-1");
 const barTwo = document.querySelector(".bar-chart-2");
 const barThree = document.querySelector(".bar-chart-3");
