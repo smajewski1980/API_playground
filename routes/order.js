@@ -12,6 +12,9 @@ function getTimeStamp() {
   return timeStamp;
 }
 
+// this get route triggers the session cart to be an order
+// creates an order to get order number
+// then inserts the items
 router.get("/", (req, res, next) => {
   // insert user into order table and get back order number
   pool.query(
@@ -48,6 +51,7 @@ router.get("/", (req, res, next) => {
         const resMsg = `order received, confirmation number: ${orderId}</br>You will receive an email shortly.`;
         res.status(200).send({
           msg: resMsg,
+          orderNum: orderId,
         });
       }
     }
