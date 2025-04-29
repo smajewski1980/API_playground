@@ -1,5 +1,10 @@
 const express = require("express");
 const app = express();
+const http = require("http");
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
+
 const user = require("./routes/user");
 const product = require("./routes/product");
 const cart = require("./routes/cart");
@@ -7,6 +12,11 @@ const order = require("./routes/order");
 const session = require("express-session");
 const siteCounter = require("./routes/site_counter");
 const dashboard = require("./routes/dashboard");
+
+io.on("connection", (socket) => {
+  console.log("connected through socket id:" + socket.id);
+  console.log(socket);
+});
 
 app.use(
   session({
@@ -69,6 +79,6 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 5500;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`listening on port: ${PORT}`);
 });
