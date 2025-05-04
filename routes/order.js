@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../db_connect");
 
+const Socket = require("../utils/Socket").socket;
+
 function getTimeStamp() {
   const now = new Date();
   const month = now.getMonth() + 1;
@@ -16,6 +18,7 @@ function getTimeStamp() {
 // creates an order to get order number
 // then inserts the items
 router.get("/", (req, res, next) => {
+  const socket = Socket.getIo();
   // insert user into order table and get back order number
   pool.query(
     `insert into orders(user_id, order_date) values($1, $2) returning *`,
@@ -49,6 +52,7 @@ router.get("/", (req, res, next) => {
         // need to clear session cart data
         req.session.cart = [];
         const resMsg = `order received, confirmation number: ${orderId}</br>You will receive an email shortly.`;
+        socket.emit("new-order", { msg: "there is a new order" });
         res.status(200).send({
           msg: resMsg,
           orderNum: orderId,

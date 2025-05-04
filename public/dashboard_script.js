@@ -53,6 +53,10 @@ socket.on("connect", () => {
   console.log("socket is connected");
 });
 
+socket.on("new-order", (msg) => {
+  console.log(msg.msg);
+});
+
 const date = new Date();
 let hours = date.getHours();
 const ampm = hours >= 12 ? "PM" : "AM";
