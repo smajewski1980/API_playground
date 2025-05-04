@@ -7,6 +7,7 @@ const order = require("./routes/order");
 const session = require("express-session");
 const siteCounter = require("./routes/site_counter");
 const dashboard = require("./routes/dashboard");
+const Socket = require("./utils/Socket").socket;
 
 app.use(
   session({
@@ -69,6 +70,9 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 5500;
-app.listen(PORT, () => {
+
+let server = app.listen(PORT, () => {
   console.log(`listening on port: ${PORT}`);
+  Socket.setServer(server);
+  Socket.createConnection();
 });

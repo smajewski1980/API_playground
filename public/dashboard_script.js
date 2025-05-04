@@ -49,6 +49,10 @@ const chartColors = [
 ];
 const chartWrapper = document.querySelector(".last-week-sales-wrapper");
 
+socket.on("connect", () => {
+  console.log("socket is connected");
+});
+
 const date = new Date();
 let hours = date.getHours();
 const ampm = hours >= 12 ? "PM" : "AM";
