@@ -55,6 +55,7 @@ socket.on("connect", () => {
 
 socket.on("new-order", (msg) => {
   console.log(msg.msg);
+  loadData();
 });
 
 const date = new Date();
