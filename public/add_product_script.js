@@ -1,6 +1,7 @@
 const btnAddProduct = document.querySelector("#btn-add-product");
 const addProductForm = document.getElementById("form-add-product");
 const addProdMain = document.getElementById("add-prod-main");
+const dashboardLink = document.querySelector("#add-product-nav a:last-child");
 
 loginStatus([], []);
 

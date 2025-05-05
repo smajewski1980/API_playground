@@ -39,6 +39,8 @@ const loginStatus = (goodStatus, badStatus) => {
         if (!is_admin) {
           addProdMain.style.setProperty("--overlay-display", "grid");
           addProductForm.style.display = "none";
+          // also make dashboard link inactive
+          dashboardLink.style.display = "none";
         }
       }
     } else {

@@ -3,7 +3,7 @@ const PASSWORD = require("./secure");
 const { Pool } = pg;
 const pool = new Pool({
   user: "postgres",
-  password: `${PASSWORD}`,
+  password: PASSWORD,
   host: "localhost",
   port: 5432,
   database: "API_playground",
