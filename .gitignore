@@ -2,3 +2,5 @@ node_modules/
 todos.txt
 public/assets/avatars/
 sql/
+5-4-25_pg_backup_API_playground.sql
+secure.js
