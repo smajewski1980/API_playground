@@ -8,6 +8,7 @@ const session = require("express-session");
 const siteCounter = require("./routes/site_counter");
 const dashboard = require("./routes/dashboard");
 const Socket = require("./utils/Socket").socket;
+const checkPw = require("./utils/hashPassword");
 
 app.use(
   session({
@@ -33,12 +34,13 @@ app.post("/login", async (req, res, next) => {
   const { username, password } = body;
   const getUser = await fetch(`http:localhost:5500/user/${username}`);
   const user = await getUser.json();
+  const isPwGood = await checkPw(password, user[0].password);
   // console.log(user);
   if (!user[0]) {
     const err = new Error("no user by that name");
     next(err);
     return;
-  } else if (user[0].password === password) {
+  } else if (isPwGood) {
     console.log("login successful!");
     req.session.visited = true;
     req.session.user = user[0].name;

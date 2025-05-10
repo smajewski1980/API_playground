@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../db_connect");
+const hashPassword = require("../utils/hashPassword");
 
 pool
   .connect()
@@ -51,7 +52,7 @@ router.post("/", (req, res) => {
   );
 });
 
-router.put("/", (req, res) => {
+router.put("/", async (req, res) => {
   const body = req.body;
   console.log(body);
   for (const val in body) {
@@ -64,7 +65,7 @@ router.put("/", (req, res) => {
     "update users set name = $1, password = $2, email = $3, address_line_1 = $4, address_line_2 = $5, phone = $6, prefers_email_notifications = $7, prefers_phone_notifications = $8 where id = $9",
     [
       body.name,
-      body.password,
+      await hashPassword(body.password),
       body.email,
       body.address_line_1,
       body.address_line_2,
