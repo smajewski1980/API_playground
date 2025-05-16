@@ -83,11 +83,20 @@ app.post(
   }
 );
 
-app.post("/logout", (req, res) => {
-  const user = req.session.user;
-  console.log(`${user} has logged out`);
-  req.session.destroy();
-  res.send({ msg: "session ended" });
+// app.post("/logout", (req, res) => {
+//   const user = req.session.user;
+//   console.log(`${user} has logged out`);
+//   req.session.destroy();
+//   res.send({ msg: "session ended" });
+// });
+
+app.get("/logout", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      console.log(err);
+    }
+    res.redirect("/user");
+  });
 });
 
 app.get("/login/status", checkLoggedIn, (req, res, next) => {

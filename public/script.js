@@ -130,12 +130,20 @@ function handleLoginForm(e) {
 }
 
 function handleLogout() {
-  const logout = fetch("/logout", { method: "POST" });
-  loginForm.style.display = "block";
-  avatar.src = "";
-  loginStatus([], [btnNavCart, btnLogout, btnOrders]);
-  setCartItemCount();
+  fetch("/logout").then((res) => {
+    loginForm.style.display = "block";
+    avatar.src = "";
+    loginStatus([], [btnNavCart, btnLogout, btnOrders]);
+    setCartItemCount();
+  });
 }
+// function handleLogout() {
+//   const logout = fetch("/logout", { method: "POST" });
+//   loginForm.style.display = "block";
+//   avatar.src = "";
+//   loginStatus([], [btnNavCart, btnLogout, btnOrders]);
+//   setCartItemCount();
+// }
 
 btnLogout.addEventListener("click", handleLogout);
 btnSubmit.addEventListener("click", handleSubmit);
