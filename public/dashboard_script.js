@@ -98,13 +98,28 @@ async function setSalesLastSevenDays(data) {
   const scaleFactor = availHeight / largestTotal;
 
   // put the array in date order
-  const sortedDataNewestFirst = data.toSorted((a, b) => {
-    return a.order_date < b.order_date
-      ? 1
-      : b.order_date < a.order_date
-      ? -1
-      : 0;
-  });
+  // think its good now...
+  const sortedDataNewestFirst = data
+    .toSorted((a, b) => {
+      // this sorts by the days
+      return parseInt(a.order_date.split("/")[1]) <
+        parseInt(b.order_date.split("/")[1])
+        ? 1
+        : parseInt(b.order_date.split("/")[1]) <
+          parseInt(a.order_date.split("/")[1])
+        ? -1
+        : 0;
+    })
+    .toSorted((a, b) => {
+      // this sorts by the months
+      return parseInt(a.order_date.split("/")[0]) <
+        parseInt(b.order_date.split("/")[0])
+        ? 1
+        : parseInt(b.order_date.split("/")[0]) <
+          parseInt(a.order_date.split("/")[0])
+        ? -1
+        : 0;
+    });
 
   // get the vals for the ui into separate arrays
   const heightValsNewestFirst = [];
