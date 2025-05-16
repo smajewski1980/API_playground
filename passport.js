@@ -20,7 +20,7 @@ passport.deserializeUser((id, done) => {
 const local = passport.use(
   new LocalStrategy(function (username, password, done) {
     pool.query(
-      "select * from users where username = $1",
+      "select * from users where name = $1",
       [username],
       async (err, result) => {
         const user = result.rows[0];

@@ -8,6 +8,8 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 
 const session = require("express-session");
+const passport = require("passport");
+require("./passport");
 
 const user = require("./routes/user");
 const product = require("./routes/product");
@@ -23,6 +25,8 @@ io.on("connection", (socket) => {
 const Socket = require("./utils/Socket").socket;
 const checkPw = require("./utils/hashPassword");
 
+const checkLoggedIn = require("./middleware/check_logged_in");
+
 app.use(
   session({
     secret: "isYouCrazy!!",
@@ -33,6 +37,8 @@ app.use(
     },
   })
 );
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static("public"));
 app.use(express.json());
 app.use("/user", user);
@@ -42,29 +48,40 @@ app.use("/order", order);
 app.use("/site_counter", siteCounter);
 app.use("/dashboard", dashboard);
 
-app.post("/login", async (req, res, next) => {
-  const { body } = req;
-  const { username, password } = body;
-  const getUser = await fetch(`http:localhost:5500/user/${username}`);
-  const user = await getUser.json();
-  const isPwGood = await checkPw(password, user[0].password);
-  // console.log(user);
-  if (!user[0]) {
-    const err = new Error("no user by that name");
-    next(err);
-    return;
-  } else if (isPwGood) {
-    console.log("login successful!");
-    req.session.visited = true;
-    req.session.user = user[0].name;
-    req.session.userObj = user[0];
-    res.status(200).send(JSON.stringify(user));
-    return;
-  } else {
-    const err = new Error("wrong password");
-    next(err);
+// app.post("/login", async (req, res, next) => {
+//   const { body } = req;
+//   const { username, password } = body;
+//   const getUser = await fetch(`http:localhost:5500/user/${username}`);
+//   const user = await getUser.json();
+//   const isPwGood = await checkPw(password, user[0].password);
+//   if (!user[0]) {
+//     const err = new Error("no user by that name");
+//     next(err);
+//     return;
+//   } else if (isPwGood) {
+//     console.log("login successful!");
+//     req.session.visited = true;
+//     req.session.user = user[0].name;
+//     req.session.userObj = user[0];
+//     res.status(200).send(JSON.stringify(user));
+//     return;
+//   } else {
+//     const err = new Error("wrong password");
+//     next(err);
+//   }
+// });
+
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    // successRedirect: "/product",
+  }),
+  (req, res, next) => {
+    // console.log("if we get here req.user is: " + JSON.stringify(req.user));
+    res.status(200).send(JSON.stringify(req.user));
   }
-});
+);
 
 app.post("/logout", (req, res) => {
   const user = req.session.user;
@@ -73,9 +90,10 @@ app.post("/logout", (req, res) => {
   res.send({ msg: "session ended" });
 });
 
-app.get("/login/status", (req, res, next) => {
-  return req.session.userObj
-    ? res.status(200).send(req.session.userObj)
+app.get("/login/status", checkLoggedIn, (req, res, next) => {
+  // console.log(req.user);
+  return req.user
+    ? res.status(200).send(req.user)
     : res.status(401).send({ msg: "not authenticated" });
 });
 

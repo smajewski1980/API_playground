@@ -16,6 +16,7 @@ const loginStatus = (goodStatus, badStatus) => {
   fetch("/login/status").then(async (res) => {
     if (res.status === 200) {
       const response = await res.json();
+      // console.log(response);
       const { name, avatar_path, is_admin } = await response;
       loginSpan.innerHTML = `${name}</br>is logged in`;
       avatar.src = avatar_path;
