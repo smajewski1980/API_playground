@@ -1,16 +1,18 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+
 const http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
+const session = require("express-session");
+
 const user = require("./routes/user");
 const product = require("./routes/product");
 const cart = require("./routes/cart");
 const order = require("./routes/order");
-const session = require("express-session");
 const siteCounter = require("./routes/site_counter");
 const dashboard = require("./routes/dashboard");
 

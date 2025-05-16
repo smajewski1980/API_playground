@@ -3,13 +3,6 @@ const router = express.Router();
 const pool = require("../db_connect");
 const hashPassword = require("../utils/hashPassword");
 
-pool
-  .connect()
-  .then(console.log("connected to the database: API_playground"))
-  .catch((err) => {
-    console.error(err.message);
-  });
-
 router.get("/:name", (req, res, next) => {
   const name = req.params.name;
 
