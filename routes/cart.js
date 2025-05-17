@@ -3,7 +3,7 @@ const router = express.Router();
 
 // get all cart items
 router.get("/", (req, res, next) => {
-  if (!req.session.user) {
+  if (!req.user) {
     const err = new Error("go log in first");
     next(err);
   } else if (!req.session.cart) {
@@ -58,10 +58,10 @@ router.post("/", (req, res, next) => {
     return;
   }
 
-  if (!req.session.cart && req.session.user) {
+  if (!req.session.cart && req.user) {
     req.session.cart = [newItem];
     res.status(200).send(newItem);
-  } else if (req.session.user) {
+  } else if (req.user) {
     const cartHasItem = req.session.cart.find(
       (item) => item.product_id === newItem.product_id
     );

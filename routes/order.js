@@ -22,7 +22,7 @@ router.get("/", (req, res, next) => {
   // insert user into order table and get back order number
   pool.query(
     `insert into orders(user_id, order_date) values($1, $2) returning *`,
-    [req.session.userObj.id, getTimeStamp()],
+    [req.user.id, getTimeStamp()],
     (err, result) => {
       if (err) {
         const error = new Error(err);

@@ -60,11 +60,12 @@ let loginStatus = () => {
 loginStatus();
 
 function handleLogout() {
-  const logout = fetch("/logout", { method: "POST" });
-  avatar.src = "";
-  loginStatus();
-  setCartItemCount();
-  ordersWrapper.innerHTML = "<h2>Logged Out</h2>";
+  fetch("/logout").then((res) => {
+    avatar.src = "";
+    loginStatus();
+    setCartItemCount();
+    ordersWrapper.innerHTML = "<h2>Logged Out</h2>";
+  });
 }
 
 document.addEventListener("click", async (e) => {

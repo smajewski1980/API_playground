@@ -68,6 +68,7 @@ document.addEventListener("click", (e) => {
         quantity: quantity,
       }),
     };
+    console.log(options.body);
     fetch("/cart", options)
       .then((res) => {
         if (!res.ok) {

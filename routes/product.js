@@ -2,12 +2,12 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../db_connect");
 
-pool
-  .connect()
-  .then(console.log("connected to the database: API_playground"))
-  .catch((err) => {
-    console.error(err.message);
-  });
+// pool
+//   .connect()
+//   .then(console.log("connected to the database: API_playground"))
+//   .catch((err) => {
+//     console.error(err.message);
+//   });
 
 router.get("/", (req, res, next) => {
   pool.query("select * from products order by name", (err, result) => {
