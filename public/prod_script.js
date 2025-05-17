@@ -88,12 +88,12 @@ document.addEventListener("click", (e) => {
         if (res.quantity >= 1) {
           console.log("item added to cart");
           prodAddedModal.showModal();
+          setCartItemCount();
         }
       })
       .catch((err) => {
         console.log(err);
       });
-    setCartItemCount();
   }
 });
 
