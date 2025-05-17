@@ -36,16 +36,15 @@ const loginStatus = (goodStatus, badStatus) => {
         btnCreateUser.style.pointerEvents = "none";
         btnCreateUser.style.opacity = ".5";
       }
-    }
-    // if (typeof addProdMain === "object") {
-    //   if (!is_admin) {
-    //     addProdMain.style.setProperty("--overlay-display", "grid");
-    //     addProductForm.style.display = "none";
-    //     // also make dashboard link inactive
-    //     dashboardLink.style.display = "none";
-    //   }
-    // }
-    else {
+      if (typeof addProdMain === "object") {
+        if (!is_admin) {
+          addProdMain.style.setProperty("--overlay-display", "grid");
+          addProductForm.style.display = "none";
+          // also make dashboard link inactive
+          dashboardLink.style.display = "none";
+        }
+      }
+    } else {
       loginSpan.innerHTML = "Logged out";
       avatar.src = "./assets/avatars/generic_user_avatar.png";
       // if no one is logged in, show the go log in overlay on products page

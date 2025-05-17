@@ -23,8 +23,6 @@ io.on("connection", (socket) => {
   console.log(socket);
 });
 const Socket = require("./utils/Socket").socket;
-const checkPw = require("./utils/hashPassword");
-
 const checkLoggedIn = require("./middleware/check_logged_in");
 
 app.use(
@@ -48,47 +46,15 @@ app.use("/order", order);
 app.use("/site_counter", siteCounter);
 app.use("/dashboard", dashboard);
 
-// app.post("/login", async (req, res, next) => {
-//   const { body } = req;
-//   const { username, password } = body;
-//   const getUser = await fetch(`http:localhost:5500/user/${username}`);
-//   const user = await getUser.json();
-//   const isPwGood = await checkPw(password, user[0].password);
-//   if (!user[0]) {
-//     const err = new Error("no user by that name");
-//     next(err);
-//     return;
-//   } else if (isPwGood) {
-//     console.log("login successful!");
-//     req.session.visited = true;
-//     req.session.user = user[0].name;
-//     req.session.userObj = user[0];
-//     res.status(200).send(JSON.stringify(user));
-//     return;
-//   } else {
-//     const err = new Error("wrong password");
-//     next(err);
-//   }
-// });
-
 app.post(
   "/login",
   passport.authenticate("local", {
     failureRedirect: "/login",
-    // successRedirect: "/product",
   }),
   (req, res, next) => {
-    // console.log("if we get here req.user is: " + JSON.stringify(req.user));
     res.status(200).send(JSON.stringify(req.user));
   }
 );
-
-// app.post("/logout", (req, res) => {
-//   const user = req.session.user;
-//   console.log(`${user} has logged out`);
-//   req.session.destroy();
-//   res.send({ msg: "session ended" });
-// });
 
 app.get("/logout", (req, res, next) => {
   req.logout((err) => {
@@ -100,7 +66,6 @@ app.get("/logout", (req, res, next) => {
 });
 
 app.get("/login/status", checkLoggedIn, (req, res, next) => {
-  // console.log(req.user);
   return req.user
     ? res.status(200).send(req.user)
     : res.status(401).send({ msg: "not authenticated" });
