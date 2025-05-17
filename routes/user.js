@@ -15,7 +15,7 @@ router.get("/:name", (req, res, next) => {
   });
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const body = req.body;
   for (const val in body) {
     if (!body[val]) {
@@ -27,7 +27,7 @@ router.post("/", (req, res) => {
     "insert into users(name, password, email, address_line_1, address_line_2, phone, prefers_email_notifications, prefers_phone_notifications)values ($1, $2, $3, $4, $5, $6, $7, $8) returning *",
     [
       body.name,
-      body.password,
+      await hashPassword(body.password),
       body.email,
       body.address_line_1,
       body.address_line_2,

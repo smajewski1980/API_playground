@@ -19,7 +19,9 @@ const loginStatus = (goodStatus, badStatus) => {
       // console.log(response);
       const { name, avatar_path, is_admin } = await response;
       loginSpan.innerHTML = `${name}</br>is logged in`;
-      avatar.src = avatar_path;
+      avatar_path
+        ? (avatar.src = avatar_path)
+        : (avatar.src = "./assets/avatars/generic_user_avatar.png");
       isUserAdmin = is_admin;
       if (typeof currentUserName === "object") {
         currentUserName = name;
